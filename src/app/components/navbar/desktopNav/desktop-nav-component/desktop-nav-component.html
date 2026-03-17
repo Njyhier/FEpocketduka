@@ -1,0 +1,29 @@
+<div id="contain" class="flex text-white font-light gap-12">
+  <nav class="gap-12 hidden md:flex">
+    <ul class="flex gap-8">
+      <li>Home</li>
+      <li>Shop</li>
+      <li>Deals</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+    <app-searchbar-component></app-searchbar-component>
+  </nav>
+  <nav id="ttnt">
+    <ul class="flex items-center gap-5">
+      <li>
+        <a href="/" class="hidden md:flex"><i class="fa-solid fa-magnifying-glass"></i></a>
+      </li>
+      <li class="relative">
+        <a href="/"><i class="fa-solid fa-cart-arrow-down"></i></a>
+        <p class="absolute -top-2 -right-3 bg-orange-500 rounded-full h-5 w-5 text-center">1</p>
+      </li>
+      <li><a href="/"></a><i class="fa-regular fa-user"></i></li>
+      <div class="[&>*]:w-5 [&>*]:h-[1.5px] [&>*]:bg-white [&>*]:my-1 md:hidden">
+        <div class=""></div>
+        <div class=""></div>
+        <div class=""></div>
+      </div>
+    </ul>
+  </nav>
+</div>
