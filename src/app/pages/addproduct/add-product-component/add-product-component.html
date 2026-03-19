@@ -1,0 +1,72 @@
+<div id="container" class="h-fit flex items-center justify-center my-4">
+  <form action="add-product" class="flex flex-col gap-y-6 bg- w-[99%] p-5 border ">
+    <div id="basic" class="flex flex-col border border-orange-500 p-6 rounded-3xl">
+      <h2>Basic Information</h2>
+      <div class="fgroup">
+        <label for="pname">Product Name</label>
+        <input type="text" name="pname" id="pname" placeholder="e.g, Premium Wireless Headphones" />
+      </div>
+      <div class="fgroup">
+        <label for="desc">Description</label>
+        <textarea
+          type="text"
+          name="desc"
+          id="desc"
+          placeholder="Detailed product description..."
+        ></textarea>
+      </div>
+      <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4">
+        <div class="fgroup">
+          <label for="category">Category</label>
+          <input type="text" name="category" id="category" placeholder="Select a category" />
+        </div>
+        <div class="fgroup">
+          <label for="brand">Brand</label>
+          <input type="text" name="brand" id="brand" placeholder="e.g, Apple, Samsung, Elliots" />
+        </div>
+      </div>
+      <div class="fgroup">
+        <label for="brand">Tags</label>
+        <input type="text" name="brand" id="brand" placeholder="e.g, Apple, Samsung, Elliots" />
+      </div>
+    </div>
+    <div
+      id="PI"
+      class="border border-orange-500 p-6 rounded-3xl grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4"
+    >
+      <div class="fgroup">
+        <label for="brand">Cost Price</label>
+        <input type="text" name="cprice" id="cprice" placeholder="" />
+      </div>
+      <div class="fgroup">
+        <label for="brand">Selling Price</label>
+        <input type="text" name="sprice" id="sprice" placeholder="" />
+      </div>
+      <div class="fgroup">
+        <label for="brand">Quantity</label>
+        <input type="text" name="quantity" id="quantity" placeholder="" />
+      </div>
+      <div class="fgroup">
+        <label for="brand">Reserved Quantity</label>
+        <input type="text" name="rquantity" id="rquantity" placeholder="" />
+      </div>
+    </div>
+    <div id="images" class="border border-orange-500 p-6 rounded-3xl flex flex-col">
+      <label for="images">Product Images</label>
+      <input
+        type="file"
+        name="images"
+        multiple
+        id="images"
+        accept="image/*"
+        placeholder="First one will be the main image"
+      />
+    </div>
+    <div id="buttons" class="w-full flex justify-end gap-8">
+      <button class="border border-orange-600 p-1 h-9 rounded-xl w-24">Cancel</button>
+      <button class="bg-orange-400 px-4 rounded-xl">
+        <i class="fa-regular fa-floppy-disk"></i> Add Product
+      </button>
+    </div>
+  </form>
+</div>
