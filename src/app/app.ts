@@ -1,15 +1,16 @@
 import { Component, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header-component/header-component';
 import { FooterComponent } from './components/footer/footer-component/footer-component';
-import { HomepageComponent } from './pages/homepage/homepage-component/homepage-component';
-
+import { LoaderService } from './services/loader/loader-service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent, HomepageComponent],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   protected readonly title = signal('pocketduka');
+  constructor(private loaderService: LoaderService) {}
 }
