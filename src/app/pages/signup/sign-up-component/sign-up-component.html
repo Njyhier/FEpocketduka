@@ -5,14 +5,17 @@
     </div>
   </div>
   <div class="w-[52%] rounded-l-3xl signup bg- flex flex-col items-center justify-center">
-    <form class="flex flex-col gap-y-3">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()" class="flex flex-col gap-y-3">
       <div>
         <div class="mb-10">
           <h1 class="text-center font-mono font-bold">Welcome To PocketDuka</h1>
           <p class="px-2">Please provide your details below to get started</p>
         </div>
         <div>
-          <p class="px-2">Already have an account? <a href="/" class="text-blue-600">Log in</a></p>
+          <p class="px-2">
+            Already have an account?
+            <button (click)="goToLogin()" class="text-blue-600">Log in</button>
+          </p>
         </div>
         <hr class="p-2 w-[90%]" />
       </div>
@@ -22,6 +25,7 @@
           <div class="relative h-10 w-full">
             <input
               type="text"
+              formControlName="username"
               placeholder="username"
               name="username"
               id="username"
@@ -35,6 +39,7 @@
           <div class="relative h-10 w-full">
             <input
               type="email"
+              formControlName="email"
               name="email"
               id="email"
               placeholder="email"
@@ -47,36 +52,50 @@
           <label for="password">Password:</label>
           <div class="relative w-full h-10">
             <input
-              type="password"
+              [type]="pwdtype"
+              formControlName="password"
               name="password"
               id="password"
               placeholder="Password"
               class="border border-orange-600 ps-3 w-full h-full"
             />
-            <i class="fa-solid fa-key absolute right-3 top-3 text-black"></i>
+            <i
+              (click)="toggleShowPassword()"
+              class="fa-solid fa-key absolute right-3 top-3 text-black"
+            ></i>
           </div>
         </div>
         <div class="fgroup flex relative w-72">
           <label for="password">Confirm Password:</label>
           <div class="relative w-full h-10">
             <input
-              type="password"
+              [type]="cpwdtype"
+              formControlName="confirmPassword"
               name="cpassword"
               id="cpassword"
               placeholder="Password"
               class="border border-orange-600 ps-3 w-full h-full"
             />
-            <i class="fa-solid fa-key absolute right-3 top-3 text-black"></i>
+            <i
+              (click)="toggleShowConfirmPassword()"
+              class="fa-solid fa-key absolute right-3 top-3 text-black"
+            ></i>
           </div>
         </div>
+        @if (signUpForm.errors?.['passwordMismatch'] && signUpForm.dirty) {
+          <div class="bg-slate-700">
+            <p>Passwords do not match</p>
+          </div>
+        }
       </div>
+
       <div class="flex items-center justify-center">
         <button type="submit" class="bg-orange-600 w-64 h-10 rounded-xl mt-6">Sign Up</button>
       </div>
     </form>
     <div class="relative w-full h-16 mt-8 flex justify-center">
       <h4 class="absolute -top-3">or sign up with:</h4>
-      <div class=" w-full flex items-center justify-center h-full">
+      <div class="w-full flex items-center justify-center h-full">
         <i class="fa-brands fa-google"></i>
       </div>
     </div>

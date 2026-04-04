@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between px-4 bg-gray-900 text-white w-full lg:w-[75%]">
       <div>
         <h2 class="font-bold text-xl">All Products</h2>
-        <p>Showing 12 of 12 products</p>
+        <p>Showing {{ productsToDisplay().length }} of {{ productsToDisplay().length }} products</p>
       </div>
       <div class="flex gap-2">
         <button
@@ -66,11 +66,44 @@
         </button>
       </aside>
     </div>
-    <div
-      id="items"
-      class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 place-items-center py-4 px-6"
-    >
-      <div class="rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
+    <div class="">
+      <div
+        id="items"
+        class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 place-items-center py-4 px-6"
+      >
+        @for (p of productsToDisplay(); track p.id) {
+          <div class="rounded-t-lg overflow-hidden bg bg-white pb-3 mb-2 min-h-[300px]">
+            <div class="relative">
+              <img src="/electronics.png" alt="" />
+              <div
+                class="absolute top-0 bottom-0 right-0 flex opacity-0 hover:opacity-100 left-0 items-center justify-center bg-gradient-to-t from-zinc-950"
+              >
+                <button
+                  (click)="navigateToDetails(p?.id ?? '')"
+                  class="bg-orange-400 h-9 px-4 rounded-xl"
+                >
+                  Quick View
+                </button>
+              </div>
+            </div>
+            <div class="px-1">
+              <!-- <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">
+                Best Seller
+              </p> -->
+              <h2 class="font-bold text-xl h-6 overflow-hidden">{{ p.name }}</h2>
+              <p class="text-lg">Rating</p>
+              <p class="font-semibold">${{ p.price }}</p>
+            </div>
+            <button
+              (click)="addToCart(p.id ?? '')"
+              class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
+            >
+              <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
+            </button>
+          </div>
+        }
+      </div>
+      <!-- <div class="rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
         <div class="relative">
           <img src="/electronics.png" alt="" />
           <div
@@ -79,81 +112,7 @@
             <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
           </div>
         </div>
-        <div class="px-1">
-          <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-          <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-          <p class="text-lg">Rating</p>
-          <p class="font-semibold">$199.99</p>
-        </div>
-        <button
-          class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-        >
-          <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-        </button>
-      </div>
-      <div class="rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
-        <div class="relative">
-          <img src="/electronics.png" alt="" />
-          <div
-            class="absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-gradient-to-t from-zinc-950"
-          >
-            <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
-          </div>
-        </div>
-        <div class="px-1">
-          <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-          <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-          <p class="text-lg">Rating</p>
-          <p class="font-semibold">$199.99</p>
-        </div>
-        <button
-          class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-        >
-          <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-        </button>
-      </div>
-      <div class="rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
-        <div class="relative">
-          <img src="/electronics.png" alt="" />
-          <div
-            class="absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-gradient-to-t from-zinc-950"
-          >
-            <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
-          </div>
-        </div>
-        <div class="px-1">
-          <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-          <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-          <p class="text-lg">Rating</p>
-          <p class="font-semibold">$199.99</p>
-        </div>
-        <button
-          class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-        >
-          <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-        </button>
-      </div>
-      <div class="rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
-        <div class="relative">
-          <img src="/electronics.png" alt="" />
-          <div
-            class="absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-gradient-to-t from-zinc-950"
-          >
-            <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
-          </div>
-        </div>
-        <div class="px-1">
-          <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-          <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-          <p class="text-lg">Rating</p>
-          <p class="font-semibold">$199.99</p>
-        </div>
-        <button
-          class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-        >
-          <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-        </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

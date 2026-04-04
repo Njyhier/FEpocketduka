@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-homepage-component',
@@ -7,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrl: './homepage-component.css',
 })
 export class HomepageComponent {
-
+  private router: Router = inject(Router);
+  navigateToProducts() {
+    this.router.navigate(['products']);
+  }
 }

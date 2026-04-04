@@ -1,27 +1,49 @@
 <div id="login" class="bg-sate-700 h-dvh flex py-1 w-full">
-  <div class="bg-[url('/login.jpg')] hidden md:flex bg-cover bg-no-repeat w-1/2 relative rounded-r-3xl overflow-hidden">
+  <div
+    class="bg-[url('/login.jpg')] hidden md:flex bg-cover bg-no-repeat w-1/2 relative rounded-r-3xl overflow-hidden"
+  >
     <div class="absolute top-0 bottom-0 right-0 left-0 bg-opacity-30 flex items-center bg-black">
       <h3 class="mx-auto text-white text-2xl font-extrabold text-center">Welcome Back</h3>
     </div>
   </div>
-  <div id="form" class="md:w-1/2 w-full h-full flex flex-col gap-y-8 items-center justify-center relative">
+  <form
+    id="form"
+    [formGroup]="loginForm"
+    (ngSubmit)="onLoginRequest()"
+    class="md:w-1/2 w-full h-full flex flex-col gap-y-8 items-center justify-center relative"
+  >
     <h5 class="font-bold text-lg text-orange-800">Login</h5>
-    <div id="fgroup" class="relative flex items-center justify-center  w-4/5 h-12">
-      <label for="username" class="absolute  -top-3 left-3 z-10 bg-white">Username</label>
-      <input type="text" name="username" class="w-full h-full relative border border-orange-500" />
+    <div id="fgroup" class="relative flex items-center justify-center w-4/5 h-12">
+      <label for="username" class="absolute -top-3 left-3 z-10 bg-white">Username</label>
+      <input
+        formControlName="username"
+        type="text"
+        name="username"
+        class="w-full h-full relative border border-orange-500"
+      />
       <i class="fa-solid fa-user absolute right-3"></i>
     </div>
 
-    <div id="fgroup" class="relative flex items-center justify-center  w-4/5 h-12">
-      <label for="password" class="absolute  -top-3 left-3 z-10 bg-white">Password</label>
-      <input type="text" name="password" class="w-full h-full relative border border-orange-500"/>
+    <div id="fgroup" class="relative flex items-center justify-center w-4/5 h-12">
+      <label for="password" class="absolute -top-3 left-3 z-10 bg-white">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        name="password"
+        class="w-full h-full relative border border-orange-500"
+      />
       <i class="fa-regular fa-eye absolute right-3"></i>
     </div>
 
-    <button type="submit" class="bg-orange-500 px-6 py-2 rounded-xl w-3/5 text-yellow-50 text-lg font-semibold">Sign in</button>
+    <button
+      type="submit"
+      class="bg-orange-500 px-6 py-2 rounded-xl w-3/5 text-yellow-50 text-lg font-semibold"
+    >
+      Sign in
+    </button>
     <div id="s-up" class="absolute bottom-2 flex gap-2">
       <p>Don't have an account?</p>
-      <a href="/" class="text-blue-600">Sign Up</a>
+      <button (click)="goToSignup()" class="text-blue-600">Sign Up</button>
     </div>
-  </div>
+  </form>
 </div>
