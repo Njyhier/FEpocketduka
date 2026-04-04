@@ -1,0 +1,28 @@
+.fgroup {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border: solid;
+  border-color: brown;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: black;
+  opacity: 0.5;
+  height: 40px;
+  padding: 5px;
+  color: orangered;
+  font-size: large;
+}
+textarea {
+  border: solid;
+  border-color: brown;
+  border-width: 1px;
+  border-radius: 10px;
+  background-color: black;
+  opacity: 0.5;
+  height: 100px;
+  padding: 5px;
+  color: orangered;
+}

@@ -1,0 +1,51 @@
+<div id="container" class="flex items-center justify-center">
+  <div>
+    <div>
+      <h2>My Cart</h2>
+      <h3>{{ cartService.cart().items?.length }} Items</h3>
+    </div>
+    <hr />
+    <table>
+      <tbody>
+        <tr>
+          <td>Item</td>
+          <td>Quantity</td>
+          <td>Total Price</td>
+        </tr>
+        @for (i of cartService.cart().items; track i.id) {
+          <tr>
+            <td>
+              <div class="flex">
+                <img [src]="i.image_url" [alt]="i.name" class="w-40 h-40 rounded-3xl" />
+                <div>
+                  <h2>{{ i.name }}</h2>
+                  <p>{{ i.category }}</p>
+                  <h3>${{ i.price }}</h3>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="bg-slate-600">
+                <button class="w-6">-</button>
+                <input type="text" class="w-10" [value]="i.quantity" />
+                <button class="w-6">+</button>
+              </div>
+            </td>
+            <td>
+              {{ i.subtotal }}
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <h2>Order Summary</h2>
+    <hr />
+    <div class="">
+      <h3>{{ cartService.cart().total_items }} Items</h3>
+      <h3>${{ cartService.cart().subtotal }}</h3>
+    </div>
+    <button (click)="checkOut()">Checkout</button>
+  </div>
+</div>

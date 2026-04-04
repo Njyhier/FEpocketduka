@@ -1,0 +1,19 @@
+.fgs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(150px,1fr));
+  gap: 2px;
+  margin-top: 3px;
+  align-items: center;
+}
+input{
+  background-color: black;
+  opacity: 0.3;
+  border:solid;
+  border: black;
+}
+
+.fgroup {
+  display: flex ;
+  flex-direction: column;
+  margin-top: ;
+}

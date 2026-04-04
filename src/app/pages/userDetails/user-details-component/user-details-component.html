@@ -1,0 +1,64 @@
+<div id="details">
+  <form action="" class="border border-black m-3 p-3 h-fit">
+    <div id="photo" class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] border border-orange-700 p-2 rounded-xl">
+      <div>
+        <img src="/logo.png" alt="" class="w-14 rounded-full border border-black" />
+        <div id="fgroup" >
+          <label for="upload">Upload a New Profile Picture</label>
+          <input type="file" name="pp" id="pp" class="w-3"/>
+        </div>
+      </div>
+      <div class="flex justify-end items-end">
+        <button class="bg-orange-400 px-6 py-2 rounded-lg">Update</button>
+      </div>
+    </div>
+    <div id="info" class="border border-orange-700 p-2 rounded-xl mt-5">
+      <h1>Update User Information</h1>
+      <div class="fgs">
+        <div class="fgroup">
+          <label for="fname">First Name</label>
+          <input type="text" name="fname" id="fname" />
+        </div>
+        <div class="fgroup">
+          <label for="lname">Last Name</label>
+          <input type="text" name="lname" id="lname" />
+        </div>
+      </div>
+      <div class="fgs">
+        <div class="fgroup">
+          <label for="uname">Username</label>
+          <input type="text" name="uname" id="uname" />
+        </div>
+        <div class="fgroup">
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" />
+        </div>
+      </div>
+      <div class="flex flex-col items-center">
+        <label for="address">Address</label>
+        <input type="text" name="address" id="address" class="w-[96%]"/>
+      </div>
+      <div class="fgs">
+        <div class="fgroup">
+          <label for="county">County</label>
+          <input type="text" name="county" id="county" />
+        </div>
+        <div class="fgroup">
+          <label for="city">City</label>
+          <input type="text" name="city" id="city" />
+        </div>
+      </div>
+      <div class="fgs">
+        <div class="fgroup">
+          <label for="ward">Ward</label>
+          <input type="text" name="ward" id="ward" />
+        </div>
+        <div class="fgroup">
+          <label for="fname">Location</label>
+          <input type="text" name="fname" id="fname" />
+        </div>
+      </div>
+    </div>
+    <button>Update Information</button>
+  </form>
+</div>

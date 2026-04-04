@@ -1,0 +1,33 @@
+<div id="container" class="md:flex py-4">
+  <div>
+    <img
+      src="https://ik.imagekit.io/hqzrf7s4c/product_images/logo_hUEB6gHh2.png"
+      alt="AirPods-Max"
+    />
+  </div>
+  <div id="info">
+    <p class="font-semibold">{{ product()?.name }}</p>
+    <p>
+      {{ product()?.description }}
+    </p>
+    <div id="reviews" class="flex">
+      <p>stars</p>
+      <p>534 Reviews</p>
+    </div>
+    <p class="font-semibold">{{ product()?.price }}</p>
+    <div class="flex gap-3">
+      <div
+        id="cart"
+        class="border border-orange-900 w-20 flex items-center justify-center [&>button]:bg-slate-300 bg-black"
+      >
+        <button class="w-14">-</button>
+        <input type="number" name="quantity" class="w-12" />
+        <button class="w-14">+</button>
+      </div>
+      <p class="font-normal">Quantity</p>
+    </div>
+    <div class="my-3">
+      <button>Add to cart</button>
+    </div>
+  </div>
+</div>

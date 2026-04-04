@@ -1,0 +1,8 @@
+<div id="container" class="bg-fixed relative">
+  <router-outlet></router-outlet>
+  @if (loaderService.isLoading()) {
+    <app-pd-loader
+      class="w-full h-dvh bg-black absolute top-0 bg-opacity-20 flex items-center justify-center"
+    ></app-pd-loader>
+  }
+</div>
