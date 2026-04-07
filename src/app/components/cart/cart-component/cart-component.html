@@ -1,6 +1,6 @@
-<div id="container" class="flex items-center justify-center">
+<div id="container" class="md:flex items-center justify-center pb-3 h-fit">
   <div>
-    <div>
+    <div class="flex justify-around">
       <h2>My Cart</h2>
       <h3>{{ cartService.cart().items?.length }} Items</h3>
     </div>
@@ -15,8 +15,8 @@
         @for (i of cartService.cart().items; track i.id) {
           <tr>
             <td>
-              <div class="flex">
-                <img [src]="i.image_url" [alt]="i.name" class="w-40 h-40 rounded-3xl" />
+              <div class="flex text-left">
+                <img [src]="i.image_url" [alt]="i.name" class="md:w-40 h-40 rounded-3xl" />
                 <div>
                   <h2>{{ i.name }}</h2>
                   <p>{{ i.category }}</p>
@@ -26,9 +26,9 @@
             </td>
             <td>
               <div class="bg-slate-600">
-                <button class="w-6">-</button>
-                <input type="text" class="w-10" [value]="i.quantity" />
-                <button class="w-6">+</button>
+                <button (click)="decrementItemQuantity(i.id ?? '')" class="md:w-6">-</button>
+                <input type="text" class="w-5 text-center" [value]="i.quantity" />
+                <button (click)="incrementItemQuantity(i.id ?? '')" class="md:w-6">+</button>
               </div>
             </td>
             <td>
@@ -39,13 +39,15 @@
       </tbody>
     </table>
   </div>
-  <div>
-    <h2>Order Summary</h2>
+  <div class="p-4">
+    <h2 class="font-extrabold text-xl">Order Summary</h2>
     <hr />
     <div class="">
-      <h3>{{ cartService.cart().total_items }} Items</h3>
-      <h3>${{ cartService.cart().subtotal }}</h3>
+      <h3 class="font-bold text-base">{{ cartService.cart().total_items }} Items</h3>
+      <h3 class="font-semibold">${{ cartService.cart().subtotal }}</h3>
     </div>
-    <button (click)="checkOut()">Checkout</button>
+    <button (click)="checkOut()" class="bg-orange-500 hover:bg-red-600 rounded-xl p-2">
+      Checkout
+    </button>
   </div>
 </div>

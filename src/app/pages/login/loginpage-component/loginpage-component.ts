@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Authservice } from '../../../services/auth/authservice';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CartService } from '../../../services/cart/cart-service';
 
 @Component({
   selector: 'app-loginpage-component',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginpageComponent {
   private router: Router = inject(Router);
   authservice = inject(Authservice);
+  cartService = inject(CartService);
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -30,6 +32,7 @@ export class LoginpageComponent {
       next: (token) => {
         this.authservice.setToken(token.access_token);
         console.log('Login Successful');
+        this.cartService.getCart().subscribe((res) => console.log(res));
         this.router.navigate(['products']);
         setTimeout(() => this.authservice.removeToken(), 3600000);
       },

@@ -10,8 +10,8 @@ import { IApiresponse } from '../../interfaces/iapiresponse';
 })
 export class ProductService {
   http = inject(HttpClient);
-  createProduct(data: IProduct): Observable<IApiresponse<IProduct>> {
-    return this.http.post<IApiresponse<IProduct>>(`${environment.CORE_URL}/products`, data);
+  createProduct(data: IProduct): Observable<IApiresponse<string>> {
+    return this.http.post<IApiresponse<string>>(`${environment.CORE_URL}/products`, data);
   }
   getProducts(): Observable<IApiresponse<IProduct[]>> {
     return this.http.get<IApiresponse<IProduct[]>>(`${environment.CORE_URL}/products`);

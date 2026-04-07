@@ -11,7 +11,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
   private productService = inject(ProductService);
-  product = signal<IProduct | null>(null);
+  initProduct: IProduct = {
+    id: '',
+    name: '',
+    description: '',
+    category_name: '',
+    price: 0,
+    images: [],
+    inventories: [],
+  };
+  product = signal<IProduct>(this.initProduct);
   private activatedRoute = inject(ActivatedRoute);
   private product_id = signal<string>('');
 
@@ -20,7 +29,10 @@ export class ProductDetailsComponent implements OnInit {
       next: (params) => this.product_id.set(params['product_id']),
     });
     this.productService.getProductById(this.product_id()).subscribe({
-      next: (res) => this.product.set(res.payload ?? null),
+      next: (res) => {
+        console.log(res);
+        this.product.set(res.payload ?? this.initProduct);
+      },
     });
   }
   ngOnInit(): void {

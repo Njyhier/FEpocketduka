@@ -16,4 +16,10 @@ export class CartItemService {
       {},
     );
   }
+  incrementQuantity(item_id: string) {
+    return this.http.patch(`${environment.CORE_URL}/cartitems/increment_quantity/${item_id}`, {});
+  }
+  decrementQuantity(item_id: string) {
+    return this.http.patch(`${environment.CORE_URL}/cartitems/decrement_quantity/${item_id}`, {});
+  }
 }

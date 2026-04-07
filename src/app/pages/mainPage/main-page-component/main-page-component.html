@@ -1,5 +1,7 @@
-<div id="container" class="bg-fixed relative">
-  <router-outlet></router-outlet>
+<div id="container" class="bg-fixed relative h-fit">
+  <div class="items-center flex justify-center">
+    <router-outlet></router-outlet>
+  </div>
   @if (loaderService.isLoading()) {
     <app-pd-loader
       class="w-full h-dvh bg-black absolute top-0 bg-opacity-20 flex items-center justify-center"

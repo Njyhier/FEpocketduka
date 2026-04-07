@@ -10,6 +10,6 @@ export interface IProduct {
   category_name: string;
   createdAt?: Date;
   updatedAt?: Date;
-  images: IImage[];
-  inventories?: IInventory[];
+  images: IImage[] | [];
+  inventories: IInventory[] | [];
 }

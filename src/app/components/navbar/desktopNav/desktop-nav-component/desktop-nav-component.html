@@ -19,10 +19,25 @@
         <p
           class="absolute -top-2 -right-3 bg-orange-500 rounded-full h-fit w-5 text-center text-sm"
         >
-          {{ cartService.cart().items?.length }}
+          {{ cartService.cart().total_items }}
         </p>
       </li>
-      <li><i class="fa-regular fa-user"></i></li>
+      <li>
+        <div class="relative" (mouseenter)="toggleDropdown()" (mouseleave)="toggleDropdown()">
+          <i class="fa-regular fa-user"></i>
+          <div
+            [ngClass]="
+              showDropdown
+                ? 'block absolute -bottom-9 rounded p-2 z-50 bg-slate-700 text-white w-fit text-nowrap'
+                : 'hidden'
+            "
+          >
+            <ul>
+              <li (click)="goToAdminPage()">Admin Actions</li>
+            </ul>
+          </div>
+        </div>
+      </li>
       <div class="[&>*]:w-5 [&>*]:h-[1.5px] [&>*]:bg-white [&>*]:my-1 md:hidden">
         <div class=""></div>
         <div class=""></div>

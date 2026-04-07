@@ -49,12 +49,13 @@ export class AddProductComponent {
       category_name: category,
       description: description,
       images: [],
+      inventories: [],
     };
     this.productService
       .createProduct(product)
       ?.pipe(
-        concatMap((response: IApiresponse<IProduct>) => {
-          const id = response.payload?.id ?? '';
+        concatMap((response: IApiresponse<string>) => {
+          const id = response?.payload ?? '';
           const images = this.productForm.value?.images ?? [];
           const imgObs =
             images && images.length
@@ -80,6 +81,7 @@ export class AddProductComponent {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this.productForm.reset();
         },
         error: (e) => {
           console.log('Error!', e);

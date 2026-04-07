@@ -16,6 +16,6 @@ export class HeaderComponent {
   private router: Router = inject(Router);
   logout() {
     this.authService.removeToken();
-    this.router.navigate(['homepage']);
+    this.router.navigate(['login']);
   }
 }

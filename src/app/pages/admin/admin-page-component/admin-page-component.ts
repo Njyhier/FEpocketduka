@@ -11,6 +11,9 @@ import { Router, RouterOutlet } from '@angular/router';
 export class AdminPageComponent {
   private router: Router = inject(Router);
   goToOrders() {
-    this.router.navigate(['orders']);
+    this.router.navigate(['admin/orders']);
+  }
+  goToAddProduct() {
+    this.router.navigate(['admin/addproduct']);
   }
 }

@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<div class="container h-dvh flex items-center justify-center relative w-dvw bg-fixed">
+  <aside class="h-[95%] rounded-t p-5 absolute left-0 top-1 w-fit mt-4 bg-orange-400 text-black">
+    <nav>
+      <ul>
+        <li (click)="goToOrders()">Orders</li>
+        <li (click)="goToAddProduct()">Add Products</li>
+      </ul>
+    </nav>
+  </aside>
+  <div class="w-3/4">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,20 +1,17 @@
 <div id="container" class="md:flex py-4">
   <div>
-    <img
-      src="https://ik.imagekit.io/hqzrf7s4c/product_images/logo_hUEB6gHh2.png"
-      alt="AirPods-Max"
-    />
+    <img [src]="product().images[0]?.url" alt="AirPods-Max" />
   </div>
   <div id="info">
-    <p class="font-semibold">{{ product()?.name }}</p>
+    <p class="font-semibold">{{ product().name }}</p>
     <p>
-      {{ product()?.description }}
+      {{ product().description }}
     </p>
     <div id="reviews" class="flex">
       <p>stars</p>
       <p>534 Reviews</p>
     </div>
-    <p class="font-semibold">{{ product()?.price }}</p>
+    <p class="font-semibold">{{ product().inventories[0]?.selling_price }}</p>
     <div class="flex gap-3">
       <div
         id="cart"

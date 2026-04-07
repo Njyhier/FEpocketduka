@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="flex w-full justify-center">
-    <div class="bg-black w-[35%] mt-2 rounded-xl h-fit hidden md:block lg:w-[20%]">
+    <div class="bg-black w-[35%] mt-2 rounded-xl h-fit lg:w-[20%] hidden">
       <aside
         class="w-full h-full text-white [&>nav]:my-4 [&>nav>h2]:font-bold [&>nav>ul>li]:m-2 px-2"
       >
@@ -69,12 +69,14 @@
     <div class="">
       <div
         id="items"
-        class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 place-items-center py-4 px-6"
+        class="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4 place-items-center py-4 px-6"
       >
         @for (p of productsToDisplay(); track p.id) {
-          <div class="rounded-t-lg overflow-hidden bg bg-white pb-3 mb-2 min-h-[300px]">
-            <div class="relative">
-              <img src="/electronics.png" alt="" />
+          <div
+            class="rounded-t-lg overflow-hidden bg bg-white pb-3 mb-2 min-h-[300px] min-w-[200px]"
+          >
+            <div class="relative h-52 overflow-hidden">
+              <img [src]="p.images[0]?.url" alt="" />
               <div
                 class="absolute top-0 bottom-0 right-0 flex opacity-0 hover:opacity-100 left-0 items-center justify-center bg-gradient-to-t from-zinc-950"
               >
@@ -86,17 +88,19 @@
                 </button>
               </div>
             </div>
-            <div class="px-1">
+            <div class="px-1 h-32">
               <!-- <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">
                 Best Seller
               </p> -->
-              <h2 class="font-bold text-xl h-6 overflow-hidden">{{ p.name }}</h2>
+              <h2 class="font-bold text-xl h-10 overflow-hidden z-50 pt-2 hover:h-fit hover:w-fit">
+                {{ p.name }}
+              </h2>
               <p class="text-lg">Rating</p>
-              <p class="font-semibold">${{ p.price }}</p>
+              <p class="font-semibold">${{ p.inventories[0]?.selling_price }}</p>
             </div>
             <button
               (click)="addToCart(p.id ?? '')"
-              class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
+              class="flex items-center justify-center bg-black text-white px-6 w-11/12 h-7 rounded-lg mx-auto"
             >
               <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
             </button>
