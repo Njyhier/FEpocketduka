@@ -1,3 +1,3 @@
 export const environment = {
-  CORE_URL: 'http://localhost:8000',
+  CORE_URL: 'https://pocketduka.onrender.com',
 };
