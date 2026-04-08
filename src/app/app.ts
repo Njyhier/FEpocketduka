@@ -14,6 +14,6 @@ import { environment } from '../environments/environment';
 export class App {
   protected readonly title = signal('pocketduka');
   constructor(private loaderService: LoaderService) {
-    console.log(environment.CORE_URL);
+    // console.log(environment.CORE_URL);
   }
 }

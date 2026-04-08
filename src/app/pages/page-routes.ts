@@ -62,8 +62,31 @@ export const pageRoutes: Routes = [
       },
       {
         path: 'admin',
-        loadChildren: () =>
-          import('./admin/admin-page-component/admin.routes').then((m) => m.adminRoutes),
+        loadComponent: () =>
+          import('./admin/admin-page-component/admin-page-component').then(
+            (m) => m.AdminPageComponent,
+          ),
+        children: [
+          {
+            path: '',
+            redirectTo: 'orders',
+            pathMatch: 'full',
+          },
+          {
+            path: 'orders',
+            loadComponent: () =>
+              import('./admin/children/orders/orders-component/orders-component').then(
+                (m) => m.OrdersComponent,
+              ),
+          },
+          {
+            path: 'addproduct',
+            loadComponent: () =>
+              import('./admin/children/addproduct/add-product-component/add-product-component').then(
+                (m) => m.AddProductComponent,
+              ),
+          },
+        ],
       },
     ],
   },

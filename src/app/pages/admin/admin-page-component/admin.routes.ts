@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { AdminPageComponent } from './admin-page-component';
 export const adminRoutes: Routes = [
   {
-    path: '',
-    component: AdminPageComponent,
+    path: 'admin',
+    loadComponent: () => import('./admin-page-component').then((m) => m.AdminPageComponent),
     children: [
       {
         path: '',
