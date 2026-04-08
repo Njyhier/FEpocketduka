@@ -1,11 +1,11 @@
-<div id="container" class="md:flex items-center justify-center pb-3 h-fit">
+<div id="container" class="md:flex md:w-[80dvw] items-center justify-center pb-3 h-fit">
   <div>
     <div class="flex justify-around">
       <h2>My Cart</h2>
       <h3>{{ cartService.cart().items?.length }} Items</h3>
     </div>
     <hr />
-    <table class="w-fit">
+    <table class="w-fit md:w-[79dvw]">
       <tbody class="w-fit">
         <tr class="justify-around">
           <td>Item</td>
@@ -40,7 +40,7 @@
   <div class="p-4">
     <h2 class="font-extrabold text-xl">Order Summary</h2>
     <hr />
-    <div class="">
+    <div>
       <h3 class="font-bold text-base">{{ cartService.cart().total_items }} Items</h3>
       <h3 class="font-semibold">${{ cartService.cart().subtotal }}</h3>
     </div>

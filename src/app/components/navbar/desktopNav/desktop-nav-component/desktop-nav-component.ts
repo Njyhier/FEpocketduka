@@ -17,7 +17,7 @@ export class DesktopNavComponent {
   showDropdown = false;
   navService = inject(NavService);
   toggleMobileNav() {
-    this.navService.showMobileNav.set(!this.navService.showMobileNav);
+    this.navService.showMobileNav = !this.navService.showMobileNav;
   }
 
   toggleDropdown() {

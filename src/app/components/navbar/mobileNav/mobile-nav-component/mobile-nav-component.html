@@ -1,5 +1,5 @@
 <nav
-  [ngClass]="navService.showMobileNav() ? 'block z-50 bg-slate-950 text-white p-4 mb-56' : 'hidden'"
+  [ngClass]="navService.showMobileNav ? 'flex z-50 bg-slate-950 text-white p-4 mb-56' : 'hidden'"
 >
   <app-searchbar-component></app-searchbar-component>
   <ul class="flex-row [&>*]:my-1">
