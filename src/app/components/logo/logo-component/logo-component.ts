@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logo-component',
@@ -10,4 +11,8 @@ import { Component, signal } from '@angular/core';
 export class LogoComponent {
   logo_image = signal('/logo.png');
   logo_text = 'Just a swipe';
+  private router = inject(Router);
+  goToHome() {
+    this.router.navigate(['homepage']);
+  }
 }

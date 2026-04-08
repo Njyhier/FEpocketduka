@@ -5,17 +5,17 @@
       <h3>{{ cartService.cart().items?.length }} Items</h3>
     </div>
     <hr />
-    <table>
-      <tbody>
-        <tr>
+    <table class="w-fit">
+      <tbody class="w-fit">
+        <tr class="justify-around">
           <td>Item</td>
           <td>Quantity</td>
           <td>Total Price</td>
         </tr>
         @for (i of cartService.cart().items; track i.id) {
           <tr>
-            <td>
-              <div class="flex text-left w-fit">
+            <td class="w-fit">
+              <div class="flex flex-col text-left align-middle justify-center">
                 <img [src]="i.image_url" [alt]="i.name" class="md:w-40 h-40 rounded-3xl" />
                 <div>
                   <h2>{{ i.name }}</h2>
