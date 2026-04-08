@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { IProduct } from '../../interfaces/iproduct';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.dev';
+import { environment } from '../../../environments/environment';
 import { IApiresponse } from '../../interfaces/iapiresponse';
 
 @Injectable({

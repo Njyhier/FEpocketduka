@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interfaces/iuser';
-import { environment } from '../../../environments/environment.dev';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { IApiresponse } from '../../interfaces/iapiresponse';
 import { Itoken } from '../../interfaces/itoken';

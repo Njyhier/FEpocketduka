@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { environment } from '../../../environments/environment.dev';
+import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { ICart } from '../../interfaces/icart';
 import { IApiresponse } from '../../interfaces/iapiresponse';
