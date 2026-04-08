@@ -1,8 +1,10 @@
-<nav class="bg-slate-950 text-white p-4 mb-56">
+<nav
+  [ngClass]="navService.showMobileNav() ? 'block z-50 bg-slate-950 text-white p-4 mb-56' : 'hidden'"
+>
   <app-searchbar-component></app-searchbar-component>
   <ul class="flex-row [&>*]:my-1">
-    <li>Home</li>
-    <li>Shop</li>
+    <li><button (click)="goToHome()">Home</button></li>
+    <li><button (click)="navigateToProducts()">Shop</button></li>
     <li>Deals</li>
     <li>About</li>
     <li>Contact</li>

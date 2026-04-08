@@ -15,7 +15,7 @@
         @for (i of cartService.cart().items; track i.id) {
           <tr>
             <td>
-              <div class="flex text-left">
+              <div class="flex text-left w-fit">
                 <img [src]="i.image_url" [alt]="i.name" class="md:w-40 h-40 rounded-3xl" />
                 <div>
                   <h2>{{ i.name }}</h2>
@@ -31,9 +31,7 @@
                 <button (click)="incrementItemQuantity(i.id ?? '')" class="md:w-6">+</button>
               </div>
             </td>
-            <td>
-              {{ i.subtotal }}
-            </td>
+            <td>${{ i.subtotal }}</td>
           </tr>
         }
       </tbody>
