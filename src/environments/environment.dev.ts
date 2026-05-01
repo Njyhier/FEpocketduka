@@ -1,3 +1,3 @@
 export const environment = {
-  CORE_URL: 'http://127.0.0.1:8000',
+  CORE_URL: 'https://app.mconnect.africa/pocket',
 };
