@@ -1,12 +1,15 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { HttpParams, HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
+import { sign } from 'crypto';
+import { IUser } from '../../interfaces/iuser';
 @Injectable({
   providedIn: 'root',
 })
 export class Authservice {
   platformId = inject(PLATFORM_ID);
+  currentUser = signal<IUser | null>(null);
   private http = inject(HttpClient);
   loginForAccessToken(username: string, password: string) {
     const body = new HttpParams().set('username', username).set('password', password);

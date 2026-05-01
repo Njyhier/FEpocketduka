@@ -5,4 +5,5 @@ export interface ICart {
   items?: ICartItem[];
   subtotal?: number;
   total_items?: number;
+  user_id?: string;
 }

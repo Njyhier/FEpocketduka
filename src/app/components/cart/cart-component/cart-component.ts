@@ -1,22 +1,24 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CartService } from '../../../services/cart/cart-service';
-import { Observable } from 'rxjs';
-import { ICart } from '../../../interfaces/icart';
-import { Router, RouterLinkActive } from '@angular/router';
+import { Router } from '@angular/router';
 import { OrderService } from '../../../services/order/order-service';
 import { CartItemService } from '../../../services/cartitem/cart-item-service';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cart-component',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './cart-component.html',
   styleUrl: './cart-component.css',
 })
 export class CartComponent implements OnInit {
   private router: Router = inject(Router);
   cartService = inject(CartService);
-  private orderService = inject(OrderService);
-  private cartItemSrervice = inject(CartItemService);
+  phone = new FormControl<string>('');
+  constructor(
+    private orderService: OrderService,
+    private cartItemSrervice: CartItemService,
+  ) {}
   getCart() {
     this.cartService.getCart().subscribe({
       next: (res) => {
@@ -31,8 +33,22 @@ export class CartComponent implements OnInit {
       },
     });
   }
+  sendStkPush() {
+    console.log('sending prompt');
+    const phoneValue = this.phone.value ?? '';
+    const user_id = this.cartService.cart()?.user_id ?? '';
+    const amount = this.cartService.cart()?.subtotal ?? 0;
+    const data = {
+      amount: String(2),
+    };
+    console.log('sending push...', phoneValue, user_id, data.amount);
+    return this.orderService.placeOrder(user_id, phoneValue, data).subscribe({
+      next: (res) => console.log(res),
+      error: (e) => console.error(e),
+    });
+  }
   checkOut() {
-    this.orderService.placeOrder().subscribe({
+    this.orderService.simulattion().subscribe({
       next: (res) => {
         console.log(res);
         this.router.navigate(['orders']);

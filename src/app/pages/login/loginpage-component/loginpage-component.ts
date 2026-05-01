@@ -29,8 +29,10 @@ export class LoginpageComponent {
       return;
     }
     this.authservice.loginForAccessToken(username, password).subscribe({
-      next: (token) => {
-        this.authservice.setToken(token.access_token);
+      next: (res) => {
+        console.log(res);
+        // this.authservice.currentUser.set(res.payload.user);
+        this.authservice.setToken(res.access_token);
         console.log('Login Successful');
         this.cartService.getCart().subscribe((res) => console.log(res));
         this.router.navigate(['products']);
