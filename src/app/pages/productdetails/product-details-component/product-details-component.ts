@@ -2,7 +2,8 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ProductService } from '../../../services/product/product-service';
 import { IProduct } from '../../../interfaces/iproduct';
 import { ActivatedRoute } from '@angular/router';
-
+import { CartItemService } from '../../../services/cartitem/cart-item-service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product-details-component',
   imports: [],
@@ -23,8 +24,13 @@ export class ProductDetailsComponent implements OnInit {
   product = signal<IProduct>(this.initProduct);
   private activatedRoute = inject(ActivatedRoute);
   private product_id = signal<string>('');
+  constructor(
+    private cartItemService: CartItemService,
+    private router: Router,
+  ) {}
 
   getProduct() {
+    console.log('Getting details');
     this.activatedRoute.params.subscribe({
       next: (params) => this.product_id.set(params['product_id']),
     });
@@ -32,6 +38,19 @@ export class ProductDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res);
         this.product.set(res.payload ?? this.initProduct);
+      },
+    });
+  }
+
+  addToCart() {
+    const product_id: string = this.product().id ?? '';
+    this.cartItemService.addTocart(product_id).subscribe({
+      next: (res) => console.log(res),
+      error: (e) => {
+        console.error('Error', e);
+        if (e.status === 401) {
+          this.router.navigate(['login']);
+        }
       },
     });
   }

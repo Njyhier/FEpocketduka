@@ -36,7 +36,10 @@ export class LoginpageComponent {
         console.log('Login Successful');
         this.cartService.getCart().subscribe((res) => console.log(res));
         this.router.navigate(['products']);
-        setTimeout(() => this.authservice.removeToken(), 3600000);
+        setTimeout(() => {
+          this.authservice.removeToken();
+          this.router.navigate([this.login]);
+        }, 3600000);
       },
       error: (e) => {
         console.log('Error', e);

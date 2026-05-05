@@ -1,30 +1,42 @@
-<div id="container" class="md:flex py-4">
-  <div>
-    <img [src]="product().images[0]?.url" alt="AirPods-Max" />
+<div
+  id="container"
+  class="lg:flex gap-2 my-4 w-[90dvw] min-h-fit lg:h-[90dvh] items-center p-4 border border-orange-800 rounded-xl"
+>
+  <div class="border border-orange-600 p-4 mr-2 sm:h-[50%] lg:h-[90%] lg:w-1/2 rounded-md">
+    <img [src]="product().images[0]?.url" alt="AirPods-Max" class="h-[99%] w-[99%] rounded-md" />
   </div>
-  <div id="info">
-    <p class="font-semibold">{{ product().name }}</p>
-    <p>
-      {{ product().description }}
-    </p>
-    <div id="reviews" class="flex">
-      <p>stars</p>
-      <p>534 Reviews</p>
+  <div id="info" class="h-[90%] min-h-fit border border-blue-200 lg:w-1/2 p-10">
+    <p class="font-semibold text-4xl">{{ product().name }}</p>
+    <hr class="mb-5" />
+    <p class="font-extrabold text-2xl">Ksh.{{ product().inventories[0]?.selling_price }}</p>
+    <div class="flex-row gap-3 h-fit border border-white">
+      <p class="bg-white w-11/12 h-fit my-5 overflow-hidden rounded-md">
+        {{ product().description.slice(0, 100) }}
+        <span
+          >Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt, tempora eius tenetur,
+          in voluptate labore expedita rerum deleniti nulla eum tempore. Facilis, culpa distinctio.
+          Aperiam consequuntur reprehenderit distinctio possimus ipsam...</span
+        >
+      </p>
+      <!-- <div class="flex gap-3">
+        <div
+          id="cart"
+          class="border border-orange-900 w-20 flex items-center justify-center [&>button]:bg-slate-300"
+        >
+          <button class="bg-slate-700 w-6">-</button>
+          <input type="text" class="w-5 text-center" />
+          <button class="bg-slate-700 w-6">+</button>
+        </div>
+        <p class="font-normal hidden">Quantity</p>
+      </div> -->
     </div>
-    <p class="font-semibold">{{ product().inventories[0]?.selling_price }}</p>
-    <div class="flex gap-3">
-      <div
-        id="cart"
-        class="border border-orange-900 w-20 flex items-center justify-center [&>button]:bg-slate-300 bg-black"
+    <div class="mt-2">
+      <button
+        (click)="addToCart()"
+        class="bg-black rounded-lg p-2 border text-white font-bold border-orange-700"
       >
-        <button class="w-14">-</button>
-        <input type="number" name="quantity" class="w-12" />
-        <button class="w-14">+</button>
-      </div>
-      <p class="font-normal">Quantity</p>
-    </div>
-    <div class="my-3">
-      <button>Add to cart</button>
+        <i class="fa-solid fa-cart-arrow-down"></i>Add To Cart
+      </button>
     </div>
   </div>
 </div>

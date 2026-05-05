@@ -5,7 +5,7 @@
         <h2 class="font-bold text-xl">All Products</h2>
         <p>Showing {{ productsToDisplay().length }} of {{ productsToDisplay().length }} products</p>
       </div>
-      <div class="flex gap-2">
+      <!-- <div class="flex gap-2">
         <button
           class="bg-white hover:bg-slate-950 rounded-lg p-1 border border-orange-800 flex items-center gap-1"
         >
@@ -16,10 +16,10 @@
         >
           Featured
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
-  <div class="flex w-full justify-center">
+  <div class="flex w-full mx-auto justify-center">
     <div class="bg-black w-[35%] mt-2 rounded-xl h-fit lg:w-[20%] hidden">
       <aside
         class="w-full h-full text-white [&>nav]:my-4 [&>nav>h2]:font-bold [&>nav>ul>li]:m-2 px-2"
@@ -66,14 +66,14 @@
         </button>
       </aside>
     </div>
-    <div class="">
+    <div class="w-full flex justify-center">
       <div
         id="items"
-        class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 place-items-center py-4 px-6 w-[99dvw]"
+        class="grid grid-cols-[repeat(auto-fit,minmax(200px,2fr))] gap-4 place-items-center py-4 px-6 lg:w-[75%]"
       >
         @for (p of productsToDisplay(); track p.id) {
           <div
-            class="rounded-t-lg overflow-hidden bg bg-white pb-3 mb-2 min-h-[300px] min-w-[200px]"
+            class="rounded-t-lg overflow-hidden bg bg-white pb-3 mb-2 min-h-[300px] min-w-[250px]"
           >
             <div class="relative h-52 overflow-hidden">
               <img [src]="p.images[0]?.url" alt="" />

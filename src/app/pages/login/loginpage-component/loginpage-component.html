@@ -12,7 +12,12 @@
     (ngSubmit)="onLoginRequest()"
     class="md:w-1/2 w-full h-full flex flex-col gap-y-8 items-center justify-center relative"
   >
+    <div id="s-up" class="absolute bottom-36 flex gap-2">
+      <p>Don't have an account?</p>
+      <button (click)="goToSignup()" class="text-blue-600">Sign Up</button>
+    </div>
     <h5 class="font-bold text-lg text-orange-800">Login</h5>
+
     <div id="fgroup" class="relative flex items-center justify-center w-4/5 h-12">
       <label for="username" class="absolute -top-3 left-3 z-10 bg-white">Username</label>
       <input
@@ -41,9 +46,5 @@
     >
       Sign in
     </button>
-    <div id="s-up" class="absolute bottom-2 flex gap-2">
-      <p>Don't have an account?</p>
-      <button (click)="goToSignup()" class="text-blue-600">Sign Up</button>
-    </div>
   </form>
 </div>

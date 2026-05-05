@@ -36,16 +36,30 @@ export class CartComponent implements OnInit {
   sendStkPush() {
     console.log('sending prompt');
     const phoneValue = this.phone.value ?? '';
+    if (!phoneValue) {
+      alert('Please enter phone number');
+      return;
+    }
     const user_id = this.cartService.cart()?.user_id ?? '';
     const amount = this.cartService.cart()?.subtotal ?? 0;
     const data = {
       amount: String(2),
     };
     console.log('sending push...', phoneValue, user_id, data.amount);
-    return this.orderService.placeOrder(user_id, phoneValue, data).subscribe({
-      next: (res) => console.log(res),
-      error: (e) => console.error(e),
-    });
+    return this.orderService
+      .placeOrder(user_id, phoneValue, data)
+      .pipe()
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.getCart();
+          // if (this.cartService.cart().items) {
+          //   alert('Failed to place order');
+          //   return;
+          // }
+        },
+        error: (e) => console.error(e),
+      });
   }
   checkOut() {
     this.orderService.simulattion().subscribe({

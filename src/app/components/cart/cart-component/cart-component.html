@@ -1,6 +1,6 @@
-<div id="container" class="md:flex md:w-[80dvw] items-center justify-center pb-3 h-fit">
+<div id="container" class="md:flx md:w-[80dvw] items-center justify-center pb-3 h-fit bg-back">
   <div>
-    <div class="flex justify-around">
+    <div class="flex justify-around w-3/4">
       <h2>My Cart</h2>
       <h3>{{ cartService.cart().items?.length }} Items</h3>
     </div>
@@ -20,36 +20,37 @@
                 <div>
                   <h2>{{ i.name }}</h2>
                   <p>{{ i.category }}</p>
-                  <h3>${{ i.price }}</h3>
+                  <h3>KSH {{ i.price }}</h3>
                 </div>
               </div>
             </td>
             <td>
-              <div class="bg-slate-600">
-                <button (click)="decrementItemQuantity(i.id ?? '')" class="md:w-6">-</button>
+              <div class="flex gap-1">
+                <button (click)="decrementItemQuantity(i.id ?? '')" class="bg-slate-700 w-6">
+                  -
+                </button>
                 <input type="text" class="w-5 text-center" [value]="i.quantity" />
-                <button (click)="incrementItemQuantity(i.id ?? '')" class="md:w-6">+</button>
+                <button (click)="incrementItemQuantity(i.id ?? '')" class="bg-slate-700 w-6">
+                  +
+                </button>
               </div>
             </td>
-            <td>${{ i.subtotal }}</td>
+            <td>KSH {{ i.subtotal }}</td>
           </tr>
         }
       </tbody>
     </table>
   </div>
-  <div class="p-4">
+  <div class="mx-auto">
     <h2 class="font-extrabold text-xl">Order Summary</h2>
     <hr />
     <div>
       <h3 class="font-bold text-base">{{ cartService.cart().total_items }} Items</h3>
-      <h3 class="font-semibold">${{ cartService.cart().subtotal }}</h3>
+      <h3 class="font-semibold">KSH {{ cartService.cart().subtotal }}</h3>
     </div>
-    <hr />
-    <!-- <button (click)="checkOut()" class="bg-orange-500 hover:bg-red-600 rounded-xl p-2">
-      Checkout
-    </button> -->
+
     <input
-      class="border my-2 rounded border-orange-500 px-2"
+      class="border mr-1 my-2 rounded border-orange-500 px-2"
       placeholder="Enter phone number to pay"
       [formControl]="phone"
       type="text"
@@ -57,5 +58,6 @@
     <button (click)="sendStkPush()" class="bg-orange-500 hover:bg-red-600 rounded-xl p-2">
       Place Order
     </button>
+    <hr />
   </div>
 </div>
