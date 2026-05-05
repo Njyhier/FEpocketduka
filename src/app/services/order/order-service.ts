@@ -21,7 +21,7 @@ export class OrderService {
   }
   placeOrder(user_id: string, phone: string, data: object): Observable<IOrder> {
     return this.http.post<IOrder>(
-      `${environment.CORE_URL}/users/${user_id}/payments?phone=${phone}`,
+      `${environment.CORE_URL}/users/${user_id}/payments?phone_number=${phone}`,
       data,
     );
   }
