@@ -96,7 +96,7 @@
                 {{ p.name }}
               </h2>
               <p class="text-lg">Rating</p>
-              <p class="font-semibold">${{ p.inventories[0]?.selling_price }}</p>
+              <p class="font-semibold">KSH {{ p.inventories[0]?.selling_price }}</p>
             </div>
             <button
               (click)="addToCart(p.id ?? '')"
