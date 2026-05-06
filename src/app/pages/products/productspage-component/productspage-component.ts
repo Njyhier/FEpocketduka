@@ -33,7 +33,7 @@ export class ProductspageComponent implements OnInit {
     this.displayProducts();
   }
   navigateToDetails(product_id: string) {
-    this.router.navigate(['productdetails', product_id]);
+    this.router.navigate(['products', product_id]);
   }
   addToCart(product_id: string) {
     this.cartItemService.addTocart(product_id).subscribe({

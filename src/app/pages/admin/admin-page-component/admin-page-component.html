@@ -1,8 +1,9 @@
 <button (click)="toggleAside()">Show Sidebar</button>
 
-<div class="container h-fit min-h-dvh flex justify-between relative w-dvw bg-fixed">
+<div class="container h-fit min-h-dvh flex gap-1 justify-between w-dvw">
   <aside
-    class="h-[95%] rounded-t p-5 absolute left-0 top-1 w-fit mt-4 bg-orange-400 text-black"
+    (mouseleave)="toggleAside()"
+    class="h-[95dvh] rounded-t p-5 w-1/6 min-w-fit mt-4 bg-slate-900 text-white"
     [ngClass]="showAside ? 'flex' : 'hidden'"
   >
     <nav>

@@ -30,13 +30,6 @@ export const pageRoutes: Routes = [
           import('./signup/sign-up-component/sign-up-component').then((m) => m.SignUpComponent),
       },
       {
-        path: 'productdetails/:product_id',
-        loadComponent: () =>
-          import('./productdetails/product-details-component/product-details-component').then(
-            (m) => m.ProductDetailsComponent,
-          ),
-      },
-      {
         path: 'userdetails/:user_id',
         loadComponent: () =>
           import('./userDetails/user-details-component/user-details-component').then(
@@ -48,6 +41,13 @@ export const pageRoutes: Routes = [
         loadComponent: () =>
           import('./products/productspage-component/productspage-component').then(
             (m) => m.ProductspageComponent,
+          ),
+      },
+      {
+        path: 'products/:product_id',
+        loadComponent: () =>
+          import('./productdetails/product-details-component/product-details-component').then(
+            (m) => m.ProductDetailsComponent,
           ),
       },
       {
