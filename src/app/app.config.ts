@@ -9,11 +9,12 @@ import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './interceptors/token/token-interceptor';
 import { loadingInterceptor } from './interceptors/loading/loading-interceptor-interceptor';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([tokenInterceptor, loadingInterceptor]), withFetch()),
+    provideHttpClient(withInterceptors([tokenInterceptor, loadingInterceptor]), withFetch()), provideClientHydration(withEventReplay()),
   ],
 };
