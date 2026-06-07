@@ -14,6 +14,7 @@ export class LoginpageComponent {
   private router: Router = inject(Router);
   authservice = inject(Authservice);
   cartService = inject(CartService);
+  ptype = 'password';
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -34,7 +35,10 @@ export class LoginpageComponent {
         // this.authservice.currentUser.set(res.payload.user);
         this.authservice.setToken(res.access_token);
         console.log('Login Successful');
-        this.cartService.getCart().subscribe((res) => console.log(res));
+        this.cartService.getCart().subscribe((res) => {
+          console.log(res);
+          this.cartService.cart.set(res.payload ?? {});
+        });
         this.router.navigate(['products']);
         setTimeout(() => {
           this.authservice.removeToken();
@@ -45,6 +49,10 @@ export class LoginpageComponent {
         console.log('Error', e);
       },
     });
+  }
+  showPassword() {
+    this.ptype = this.ptype === 'password' ? 'text' : 'password';
+    return;
   }
   onLoginRequest() {
     this.login();

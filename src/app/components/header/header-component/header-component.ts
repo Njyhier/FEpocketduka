@@ -19,6 +19,6 @@ export class HeaderComponent {
   logout() {
     this.authService.removeToken();
     this.router.navigate(['login']);
-    this.cartService.cart().items = [];
+    this.cartService.cart.set({});
   }
 }

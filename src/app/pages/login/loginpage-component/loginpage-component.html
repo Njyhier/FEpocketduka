@@ -24,7 +24,7 @@
         formControlName="username"
         type="text"
         name="username"
-        class="w-full h-full relative border border-orange-500"
+        class="w-full h-full p-2 relative border bg-white text-lg border-orange-500"
       />
       <i class="fa-solid fa-user absolute right-3"></i>
     </div>
@@ -33,11 +33,11 @@
       <label for="password" class="absolute -top-3 left-3 z-10 bg-white">Password</label>
       <input
         formControlName="password"
-        type="password"
+        type="{{ ptype }}"
         name="password"
-        class="w-full h-full relative border border-orange-500"
+        class="w-full h-full p-2 bg-white relative border text-lg border-orange-500"
       />
-      <i class="fa-regular fa-eye absolute right-3"></i>
+      <i (click)="showPassword()" class="fa-regular fa-eye absolute right-3"></i>
     </div>
 
     <button

@@ -3,6 +3,7 @@ import { ProductService } from '../../../services/product/product-service';
 import { IProduct } from '../../../interfaces/iproduct';
 import { Router } from '@angular/router';
 import { CartItemService } from '../../../services/cartitem/cart-item-service';
+import { CartService } from '../../../services/cart/cart-service';
 
 @Component({
   selector: 'app-productspage-component',
@@ -15,6 +16,7 @@ export class ProductspageComponent implements OnInit {
   productsToDisplay = signal<IProduct[]>([]);
   private router: Router = inject(Router);
   private cartItemService = inject(CartItemService);
+  constructor(private cartService: CartService) {}
   displayProducts() {
     this.productService.getProducts().subscribe({
       next: (res) => {
@@ -36,6 +38,22 @@ export class ProductspageComponent implements OnInit {
     this.router.navigate(['products', product_id]);
   }
   addToCart(product_id: string) {
+    const presentItem = this.cartService.cart()?.items?.find((x) => x.product_id === product_id);
+    if (presentItem) {
+      console.log('Item present');
+      this.cartItemService
+        .incrementQuantity(presentItem.id ?? '', (presentItem.quantity ?? 0) + 1)
+        .subscribe({
+          next: (res) => {
+            console.log(res);
+            this.cartService.getCart().subscribe((res) => {
+              console.log(res);
+              this.cartService.cart.set(res.payload ?? {});
+            });
+          },
+        });
+      return;
+    }
     this.cartItemService.addTocart(product_id).subscribe({
       next: (res) => console.log(res),
       error: (e) => {
