@@ -37,6 +37,14 @@ export class ProductspageComponent implements OnInit {
   navigateToDetails(product_id: string) {
     this.router.navigate(['products', product_id]);
   }
+
+  getCart() {
+    this.cartService.getCart().subscribe((res) => {
+      console.log(res);
+      this.cartService.cart.set(res.payload ?? {});
+      console.log('Cart Set');
+    });
+  }
   addToCart(product_id: string) {
     const presentItem = this.cartService.cart()?.items?.find((x) => x.product_id === product_id);
     if (presentItem) {
@@ -46,16 +54,16 @@ export class ProductspageComponent implements OnInit {
         .subscribe({
           next: (res) => {
             console.log(res);
-            this.cartService.getCart().subscribe((res) => {
-              console.log(res);
-              this.cartService.cart.set(res.payload ?? {});
-            });
+            this.getCart();
           },
         });
       return;
     }
     this.cartItemService.addTocart(product_id).subscribe({
-      next: (res) => console.log(res),
+      next: (res) => {
+        this.getCart();
+        console.log(res);
+      },
       error: (e) => {
         console.error('Error', e);
         if (e.status === 401) {
