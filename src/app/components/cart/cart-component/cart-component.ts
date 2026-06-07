@@ -36,6 +36,10 @@ export class CartComponent implements OnInit {
   }
 
   sendStkPush() {
+    if (!this.cartService.cart().subtotal) {
+      alert('No items in cart');
+      return;
+    }
     console.log('sending prompt');
     const phoneValue = this.phone.value ?? '';
     if (!phoneValue) {
@@ -45,7 +49,7 @@ export class CartComponent implements OnInit {
     const user_id = this.cartService.cart()?.user_id ?? '';
     const amount = this.cartService.cart()?.subtotal ?? 0;
     const data = {
-      amount: String(2),
+      amount: String(amount),
     };
     console.log('sending push...', phoneValue, user_id, data.amount);
     return this.orderService
