@@ -82,7 +82,7 @@ export class CartComponent implements OnInit {
       let updatedItems = items.map((i) => {
         if (i.id === itemId) {
           total += 1;
-          const qt = (i.quantity ?? 0) + 1;
+          const qt = i.quantity === 0 ? i.quantity : (i?.quantity ?? 0) + 1;
           const sub = (i.price ?? 0) * qt;
           return {
             ...i,
