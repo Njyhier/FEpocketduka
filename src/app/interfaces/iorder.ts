@@ -1,5 +1,5 @@
 export interface IOrder {
   id?: string;
-  created_at?: Date;
+  created_at?: string;
   status: string;
 }

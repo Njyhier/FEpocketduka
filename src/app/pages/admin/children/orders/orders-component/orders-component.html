@@ -1,20 +1,217 @@
-<div class="cont">
-  <table>
-    <tbody>
-      <tr>
-        <td>Order</td>
-        <td>Status</td>
-        <td>Placed On</td>
-        <td>Action</td>
-      </tr>
-      @for (o of orders(); track o.id) {
-        <tr>
-          <td>{{ o.id }}</td>
-          <td>{{ o.status }}</td>
-          <td>{{ o.created_at | date: 'shortDate' }}</td>
-          <td><button (click)="updateOrderStatus(o.id ?? '')">Update Status</button></td>
-        </tr>
+<div class="min-h-screen w-full overflow-x-hidden bg-slate-100 px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mx-auto w-full max-w-7xl">
+    <!-- Header -->
+    <div
+      class="mb-6 flex flex-col gap-5 rounded-2xl bg-slate-900 p-6 text-white shadow-lg sm:flex-row sm:items-center sm:justify-between"
+    >
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange-400">
+          PocketDuka Admin
+        </p>
+
+        <h1 class="mt-1 text-2xl font-extrabold sm:text-3xl">Orders</h1>
+
+        <p class="mt-2 text-sm text-slate-400">Manage customer orders and update their status.</p>
+      </div>
+
+      <!-- Order count -->
+      <div class="flex w-fit items-center gap-3 rounded-xl bg-white/10 px-4 py-3">
+        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500">
+          <i class="fa-solid fa-box-open"></i>
+        </div>
+
+        <div>
+          <p class="text-xs text-slate-400">Total Orders</p>
+
+          <p class="text-xl font-bold">
+            {{ orders().length }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Container -->
+    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <!-- Table Header -->
+      <div
+        class="hidden grid-cols-[2fr_1fr_1fr_auto] gap-4 border-b border-slate-200 bg-slate-50 px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-500 md:grid"
+      >
+        <div>Order</div>
+        <div>Status</div>
+        <div>Placed On</div>
+        <div class="text-right">Action</div>
+      </div>
+
+      <!-- Loading -->
+      @if (isLoading()) {
+        <div class="flex flex-col items-center justify-center px-6 py-20">
+          <div
+            class="h-10 w-10 animate-spin rounded-full border-4 border-slate-200 border-t-orange-500"
+          ></div>
+
+          <p class="mt-4 text-sm font-medium text-slate-500">Loading orders...</p>
+        </div>
       }
-    </tbody>
-  </table>
+
+      <!-- Orders -->
+      @else if (orders().length > 0) {
+        <div class="divide-y divide-slate-100">
+          @for (o of orders(); track o.id) {
+            <!-- Desktop -->
+            <div
+              class="hidden grid-cols-[2fr_1fr_1fr_auto] items-center gap-4 px-6 py-5 transition hover:bg-slate-50 md:grid"
+            >
+              <!-- Order -->
+              <div class="flex min-w-0 items-center gap-4">
+                <div
+                  class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-500"
+                >
+                  <i class="fa-solid fa-receipt"></i>
+                </div>
+
+                <div class="min-w-0">
+                  <p class="truncate text-sm font-bold text-slate-900">Order #{{ o.id }}</p>
+
+                  <p class="mt-1 text-xs text-slate-400">PocketDuka Order</p>
+                </div>
+              </div>
+
+              <!-- Status -->
+              <div>
+                <span
+                  class="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold"
+                  [class]="getStatusClasses(o.status)"
+                >
+                  <span class="h-2 w-2 rounded-full" [class]="getStatusDotClasses(o.status)"></span>
+
+                  {{ formatStatus(o.status) }}
+                </span>
+              </div>
+
+              <!-- Date -->
+              <div>
+                <p class="text-sm font-semibold text-slate-700">
+                  {{ o.created_at | date: 'mediumDate' }}
+                </p>
+
+                <p class="mt-1 text-xs text-slate-400">
+                  {{ o.created_at | date: 'shortTime' }}
+                </p>
+              </div>
+
+              <!-- Action -->
+              <div class="text-right">
+                <button
+                  type="button"
+                  [disabled]="updatingOrderId() === o.id"
+                  (click)="updateOrderStatus(o.id ?? '')"
+                  class="inline-flex items-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-xs font-bold text-white transition hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  @if (updatingOrderId() === o.id) {
+                    <span
+                      class="h-3.5 w-3.5 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                    ></span>
+
+                    Updating...
+                  } @else {
+                    <i class="fa-solid fa-rotate"></i>
+
+                    Update Status
+                  }
+                </button>
+              </div>
+            </div>
+
+            <!-- Mobile -->
+            <div class="p-5 transition hover:bg-slate-50 md:hidden">
+              <!-- Top -->
+              <div class="flex items-start justify-between gap-4">
+                <div class="flex min-w-0 items-center gap-3">
+                  <div
+                    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-100 text-orange-500"
+                  >
+                    <i class="fa-solid fa-receipt"></i>
+                  </div>
+
+                  <div class="min-w-0">
+                    <p class="truncate text-sm font-bold text-slate-900">Order #{{ o.id }}</p>
+
+                    <p class="mt-1 text-xs text-slate-400">
+                      {{ o.created_at | date: 'mediumDate' }}
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Status -->
+                <span
+                  class="inline-flex shrink-0 items-center gap-2 rounded-full px-3 py-1.5 text-xs font-bold"
+                  [class]="getStatusClasses(o.status)"
+                >
+                  <span class="h-2 w-2 rounded-full" [class]="getStatusDotClasses(o.status)"></span>
+
+                  {{ formatStatus(o.status) }}
+                </span>
+              </div>
+
+              <!-- Details -->
+              <div class="mt-5 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
+                <div>
+                  <p class="text-xs text-slate-400">Order ID</p>
+
+                  <p class="mt-1 truncate text-sm font-semibold text-slate-700">
+                    {{ o.id }}
+                  </p>
+                </div>
+
+                <div>
+                  <p class="text-xs text-slate-400">Placed On</p>
+
+                  <p class="mt-1 text-sm font-semibold text-slate-700">
+                    {{ o.created_at | date: 'short' }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Mobile Action -->
+              <button
+                type="button"
+                [disabled]="updatingOrderId() === o.id"
+                (click)="updateOrderStatus(o.id ?? '')"
+                class="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-3 text-xs font-bold text-white transition hover:bg-orange-500 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                @if (updatingOrderId() === o.id) {
+                  <span
+                    class="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                  ></span>
+
+                  Updating Status...
+                } @else {
+                  <i class="fa-solid fa-rotate"></i>
+
+                  Update Order Status
+                }
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Empty -->
+      @else {
+        <div class="px-6 py-20 text-center">
+          <div
+            class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-orange-100 text-orange-500"
+          >
+            <i class="fa-solid fa-box-open text-3xl"></i>
+          </div>
+
+          <h2 class="mt-5 text-xl font-bold text-slate-900">No orders found</h2>
+
+          <p class="mx-auto mt-2 max-w-md text-sm text-slate-500">
+            There are currently no customer orders to display.
+          </p>
+        </div>
+      }
+    </div>
+  </div>
 </div>
