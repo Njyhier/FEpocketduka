@@ -1,117 +1,342 @@
-<div
-  id="container"
-  class="flex h-fit border-orange-950 border items-center justify-center w-full my-12"
->
-  <form
-    [formGroup]="productForm"
-    (ngSubmit)="onCreateProduct()"
-    class="flex flex-col gap-y-6 bg- w-[99%] p-5 border"
-  >
-    <div id="basic" class="flex flex-col border border-orange-500 p-6 rounded-3xl">
-      <h2>Basic Information</h2>
-      <div class="fgroup">
-        <label for="pname">Product Name</label>
-        <input
-          formControlName="productName"
-          type="text"
-          name="pname"
-          id="pname"
-          placeholder="e.g, Premium Wireless Headphones"
-        />
-      </div>
-      <div class="fgroup">
-        <label for="desc">Description</label>
-        <textarea
-          formControlName="description"
-          type="text"
-          name="desc"
-          id="desc"
-          placeholder="Detailed product description..."
-        ></textarea>
-      </div>
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4">
-        <div class="fgroup">
-          <label for="category">Category</label>
-          <input
-            formControlName="category"
-            type="text"
-            name="category"
-            id="category"
-            placeholder="e.g, Electronics, Fashion...."
-          />
+<div class="min-h-dvh bg-slate-50">
+  <div class="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <div class="mb-6 flex items-center gap-2 text-sm text-slate-500">
+      <span>Products</span>
+
+      <i class="fa-solid fa-chevron-right text-[10px]"></i>
+
+      <span class="font-medium text-slate-800"> Add Product </span>
+    </div>
+
+    <!-- Header -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold tracking-tight text-slate-900">Add New Product</h1>
+
+      <p class="mt-1 text-sm text-slate-500">Add product information, inventory and images.</p>
+    </div>
+
+    <!-- Form -->
+    <form [formGroup]="productForm" (ngSubmit)="onCreateProduct()" class="space-y-6">
+      <!-- ====================================== -->
+      <!-- BASIC INFORMATION -->
+      <!-- ====================================== -->
+
+      <section class="rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <!-- Section Header -->
+        <div class="border-b border-slate-100 px-6 py-5">
+          <h2 class="text-base font-semibold text-slate-900">Basic Information</h2>
+
+          <p class="mt-1 text-sm text-slate-500">Enter the basic details of your product.</p>
         </div>
-        <div class="fgroup">
-          <label for="brand">Brand</label>
-          <input
-            formControlName="brand"
-            type="text"
-            name="brand"
-            id="brand"
-            placeholder="e.g, Apple, Samsung, Elliots"
-          />
+
+        <!-- Fields -->
+        <div class="grid gap-6 p-6 md:grid-cols-2">
+          <!-- Product Name -->
+          <div class="md:col-span-2">
+            <label for="productName" class="mb-2 block text-sm font-medium text-slate-700">
+              Product Name
+            </label>
+
+            <input
+              id="productName"
+              type="text"
+              formControlName="productName"
+              placeholder="e.g. Wireless Bluetooth Headphones"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+
+            @if (
+              productForm.get('productName')?.invalid && productForm.get('productName')?.touched
+            ) {
+              <p class="mt-1.5 text-xs text-red-500">Product name is required.</p>
+            }
+          </div>
+
+          <!-- Description -->
+          <div class="md:col-span-2">
+            <label for="description" class="mb-2 block text-sm font-medium text-slate-700">
+              Description
+            </label>
+
+            <textarea
+              id="description"
+              rows="5"
+              formControlName="description"
+              placeholder="Describe your product..."
+              class="w-full resize-none rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            ></textarea>
+
+            @if (
+              productForm.get('description')?.invalid && productForm.get('description')?.touched
+            ) {
+              <p class="mt-1.5 text-xs text-red-500">Product description is required.</p>
+            }
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label for="category" class="mb-2 block text-sm font-medium text-slate-700">
+              Category
+            </label>
+
+            <input
+              id="category"
+              type="text"
+              formControlName="category"
+              placeholder="e.g. Electronics"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
+
+          <!-- Brand -->
+          <div>
+            <label for="brand" class="mb-2 block text-sm font-medium text-slate-700"> Brand </label>
+
+            <input
+              id="brand"
+              type="text"
+              formControlName="brand"
+              placeholder="e.g. Sony"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
         </div>
+      </section>
+
+      <!-- ====================================== -->
+      <!-- PRICING & INVENTORY -->
+      <!-- ====================================== -->
+
+      <section
+        formGroupName="inventory"
+        class="rounded-2xl border border-slate-200 bg-white shadow-sm"
+      >
+        <!-- Section Header -->
+        <div class="border-b border-slate-100 px-6 py-5">
+          <h2 class="text-base font-semibold text-slate-900">Pricing & Inventory</h2>
+
+          <p class="mt-1 text-sm text-slate-500">Set your product pricing and stock information.</p>
+        </div>
+
+        <!-- Fields -->
+        <div class="grid gap-6 p-6 sm:grid-cols-2">
+          <!-- Quantity -->
+          <div>
+            <label for="quantity" class="mb-2 block text-sm font-medium text-slate-700">
+              Quantity
+            </label>
+
+            <input
+              id="quantity"
+              type="number"
+              min="0"
+              formControlName="quantity"
+              placeholder="0"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
+
+          <!-- Reserved Quantity -->
+          <div>
+            <label for="reservedQuantity" class="mb-2 block text-sm font-medium text-slate-700">
+              Reserved Quantity
+            </label>
+
+            <input
+              id="reservedQuantity"
+              type="number"
+              min="0"
+              formControlName="reservedQuantity"
+              placeholder="0"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
+
+          <!-- Cost Price -->
+          <div>
+            <label for="costPrice" class="mb-2 block text-sm font-medium text-slate-700">
+              Cost Price
+            </label>
+
+            <input
+              id="costPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              formControlName="costPrice"
+              placeholder="0.00"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
+
+          <!-- Selling Price -->
+          <div>
+            <label for="sellingPrice" class="mb-2 block text-sm font-medium text-slate-700">
+              Selling Price
+            </label>
+
+            <input
+              id="sellingPrice"
+              type="number"
+              min="0"
+              step="0.01"
+              formControlName="sellingPrice"
+              placeholder="0.00"
+              class="w-full rounded-xl border border-slate-200 !bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================== -->
+      <!-- PRODUCT IMAGES -->
+      <!-- ====================================== -->
+
+      <section class="rounded-2xl border border-slate-200 bg-white shadow-sm">
+        <!-- Section Header -->
+        <div class="border-b border-slate-100 px-6 py-5">
+          <h2 class="text-base font-semibold text-slate-900">Product Images</h2>
+
+          <p class="mt-1 text-sm text-slate-500">
+            Upload images that will be displayed for this product.
+          </p>
+        </div>
+
+        <div class="p-6">
+          <!-- Upload Area -->
+          <div
+            class="group relative flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center transition hover:border-orange-400 hover:bg-orange-50/40"
+            (click)="imagesInput.click()"
+          >
+            <!-- Upload Icon -->
+            <div
+              class="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100 text-orange-500 transition group-hover:scale-105"
+            >
+              <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+            </div>
+
+            <h3 class="mt-4 text-sm font-semibold text-slate-800">Upload Product Images</h3>
+
+            <p class="mt-1 max-w-sm text-xs leading-5 text-slate-400">
+              Click anywhere here to select your product images.
+            </p>
+
+            <p class="mt-2 text-xs text-slate-400">PNG, JPG, JPEG or WEBP</p>
+
+            <!-- Hidden File Input -->
+            <input
+              #imagesInput
+              id="images"
+              name="images"
+              type="file"
+              accept="image/*"
+              multiple
+              (change)="onFilesSelected($event)"
+              class="hidden"
+            />
+          </div>
+
+          <!-- ================================== -->
+          <!-- SELECTED IMAGE PREVIEWS -->
+          <!-- ================================== -->
+
+          @if (imagePreviews().length > 0) {
+            <div class="mt-8">
+              <!-- Preview Header -->
+              <div class="mb-4 flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-semibold text-slate-800">Selected Images</h3>
+
+                  <p class="mt-1 text-xs text-slate-400">
+                    {{ imagePreviews().length }}
+                    {{ imagePreviews().length === 1 ? 'image' : 'images' }}
+                    selected
+                  </p>
+                </div>
+              </div>
+
+              <!-- Images Grid -->
+              <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+                @for (preview of imagePreviews(); track preview; let i = $index) {
+                  <div
+                    class="group relative aspect-square overflow-hidden rounded-xl border border-slate-200 bg-slate-100 shadow-sm"
+                  >
+                    <!-- Image -->
+                    <img
+                      [src]="preview"
+                      [alt]="'Product image ' + (i + 1)"
+                      class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                    />
+
+                    <!-- Dark Overlay -->
+                    <div
+                      class="absolute inset-0 bg-black/0 transition duration-200 group-hover:bg-black/20"
+                    ></div>
+
+                    <!-- Image Number -->
+                    <div
+                      class="absolute left-2 top-2 flex h-7 min-w-7 items-center justify-center rounded-lg bg-white/95 px-2 text-xs font-semibold text-slate-700 shadow-sm"
+                    >
+                      {{ i + 1 }}
+                    </div>
+
+                    <!-- Delete Button -->
+                    <button
+                      type="button"
+                      (click)="removeImage(i); $event.stopPropagation()"
+                      class="absolute right-2 top-2 flex h-9 w-9 items-center justify-center rounded-lg bg-white text-slate-600 opacity-0 shadow-md transition hover:bg-red-50 hover:text-red-500 group-hover:opacity-100"
+                      [attr.aria-label]="'Delete image ' + (i + 1)"
+                      title="Remove image"
+                    >
+                      <i class="fa-solid fa-trash text-sm"></i>
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+
+          <!-- No Images Message -->
+          @if (imagePreviews().length === 0) {
+            <div
+              class="mt-5 flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3"
+            >
+              <i class="fa-solid fa-circle-info text-sm text-slate-400"></i>
+
+              <p class="text-xs text-slate-500">No images selected yet.</p>
+            </div>
+          }
+        </div>
+      </section>
+
+      <!-- ====================================== -->
+      <!-- ACTIONS -->
+      <!-- ====================================== -->
+
+      <div
+        class="flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-end"
+      >
+        <!-- Cancel -->
+        <button
+          type="button"
+          class="rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+        >
+          Cancel
+        </button>
+
+        <!-- Create Product -->
+        <button
+          type="submit"
+          [disabled]="productForm.invalid"
+          class="rounded-xl bg-orange-500 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <span class="flex items-center justify-center gap-2">
+            <i class="fa-solid fa-plus"></i>
+            Create Product
+          </span>
+        </button>
       </div>
-      <!-- <div class="fgroup">
-        <label for="brand">Tags</label>
-        <input type="text" name="brand" id="brand" placeholder="e.g, Apple, Samsung, Elliots" />
-      </div> -->
-    </div>
-    <div
-      id="PI"
-      formGroupName="inventory"
-      class="border border-orange-500 p-6 rounded-3xl grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4"
-    >
-      <div class="fgroup">
-        <label for="brand">Cost Price</label>
-        <input formControlName="costPrice" type="text" name="cprice" id="cprice" placeholder="" />
-      </div>
-      <div class="fgroup">
-        <label for="brand">Selling Price</label>
-        <input
-          formControlName="sellingPrice"
-          type="text"
-          name="sprice"
-          id="sprice"
-          placeholder=""
-        />
-      </div>
-      <div class="fgroup">
-        <label for="brand">Quantity</label>
-        <input
-          formControlName="quantity"
-          type="text"
-          name="quantity"
-          id="quantity"
-          placeholder=""
-        />
-      </div>
-      <div class="fgroup">
-        <label for="brand">Reserved Quantity</label>
-        <input
-          formControlName="reservedQuantity"
-          type="text"
-          name="rquantity"
-          id="rquantity"
-          placeholder=""
-        />
-      </div>
-    </div>
-    <div id="images" class="border border-orange-500 p-6 rounded-3xl flex flex-col">
-      <label for="images">Product Images</label>
-      <input
-        (change)="onFilesSelected($event)"
-        type="file"
-        name="images"
-        multiple
-        id="images"
-        accept="image/*"
-      />
-    </div>
-    <div id="buttons" class="w-full flex justify-end gap-8">
-      <button class="border border-orange-600 p-1 h-9 rounded-xl w-24">Cancel</button>
-      <button type="submit" class="bg-orange-400 px-4 rounded-xl">
-        <i class="fa-regular fa-floppy-disk"></i> Add Product
-      </button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
