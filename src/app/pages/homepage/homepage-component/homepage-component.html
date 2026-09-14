@@ -1,131 +1,1197 @@
-<div id="container" class="h-fit bg-white flex align-middle items-center w-[99dvw]">
-  <div id="hero" class="h-dvh bg-gradient-to-br w-full from-slate-400 to-slate-700 relative">
-    <div
-      id="overlay"
-      class="bg-gradient-to-t [&>*]:py-5 from-gray-950 to-slate-900 flex flex-col items-center justify-center py-5 h-full text-white"
-    >
-      <!-- <p>New Arrivals</p> -->
-      <h2 class="font-extrabold text-white text-xl md:text-2xl">
-        Discover Your Next Favorite Thing
-      </h2>
-      <p class="text-center text-white font-light">
-        Shop the latest trends in electronics, fashion, and home decor. Free shipping on orders over
-        $50.
-      </p>
-      <div
-        class="[&>button]:m-3 [&>button]:rounded-lg [&>button]:md:w-1/3 flex justify-center w-full"
-      >
-        <button
-          (click)="navigateToProducts()"
-          class="h-10 w-full bg-orange-400 border border-gray-600 hover:bg-orange-500 text-black"
-        >
-          Shop Now
-        </button>
-        <button
-          (click)="navigateToProducts()"
-          class="h-10 w-full bg-white hover:bg-slate-950 border border-slate-950"
-        >
-          View Deals
-        </button>
-      </div>
-      <div class="flex [&>div]:w-1/3 [&>div]:flex [&>div]:flex-col [&>div]:items-center">
-        <div class="[&>p]:text-center flex justify-center">
-          <p class="font-bold text-lg">500+</p>
-          <p>Products</p>
-        </div>
-        <hr class="w-[1px] h-20 bg-white mx-3" />
-        <div class="[&>p]:text-center">
-          <p class="font-bold text-lg">50k+</p>
-          <p>Happy Customers</p>
-        </div>
-        <hr class="w-[1px] h-20 bg-white mx-3" />
-        <div class="[&>p]:text-center">
-          <p class="font-bold text-lg">4.8</p>
-          <p>Average Rating</p>
-        </div>
-      </div>
-    </div>
+<!-- =========================================================
+     ANNOUNCEMENT BAR
+========================================================= -->
+
+<div class="w-full bg-slate-950 text-white">
+  <div
+    class="mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-2 text-center text-xs font-medium sm:px-6 lg:px-8"
+  >
+    <p>
+      Free shipping on orders over
+      <span class="font-bold text-orange-400">$50</span>
+      <span class="mx-2 text-slate-500">•</span>
+      Get <span class="font-bold text-orange-400">10% off</span> your first order
+    </p>
   </div>
 </div>
 
-<div id="category" class="flex-col items-center hidden">
-  <h1 class="font-extrabold text-xl">Shop By Category</h1>
-  <p class="text-center text-sm font-thin">
-    Explore our wide range of products across different categories
-  </p>
-  <div id="categories" class="md:flex">
-    <div class="bg-[url('/electronics.png')] bg-cover overflow-hidden m-1 w-80 h-72 rounded-2xl">
-      <div id="overlay" class="bg-gradient-to-t from-slate-950 h-full relative">
-        <div class="absolute bottom-10 left-6 text-white">
-          <p class="font-bold">Electronics</p>
-          <p>150+ Products</p>
-        </div>
-      </div>
-    </div>
-    <div class="bg-[url('/electronics.png')] bg-cover overflow-hidden m-1 w-80 h-72 rounded-2xl">
-      <div id="overlay" class="bg-gradient-to-t from-slate-950 h-full relative">
-        <div class="absolute bottom-10 left-6 text-white">
-          <p class="font-bold">Electronics</p>
-          <p>150+ Products</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div
-  id="featured"
-  class="flex-col items-center bg-gradient-to-t from-slate-950 to-slate-900 hidden"
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header
+  class="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-md"
 >
-  <p class="text-white w-full font-bold text-lg px-2 my-2">Featured Products</p>
-  <div class="text-white w-full md:w-3/5 px-2 flex justify-between my-2">
-    <p>Handpicked items, just for you:</p>
-    <button class="bg-white rounded-lg p-1 hover:bg-slate-950">View All</button>
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Main Header Row -->
+    <div class="flex min-w-0 items-center gap-3 py-3 lg:py-4">
+      <!-- Logo -->
+      <button
+        type="button"
+        (click)="navigateToProducts()"
+        class="flex shrink-0 items-center gap-2"
+        aria-label="PocketDuka"
+      >
+        <div
+          class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-xl font-black text-white shadow-sm"
+        >
+          P
+        </div>
+
+        <div class="hidden sm:block">
+          <h1 class="text-xl font-extrabold tracking-tight text-slate-900">
+            Pocket<span class="text-orange-500">Duka</span>
+          </h1>
+
+          <p class="text-[10px] font-medium uppercase tracking-widest text-slate-400">Shop Smart</p>
+        </div>
+      </button>
+
+      <!-- Desktop Search -->
+      <div class="hidden min-w-0 flex-1 md:block">
+        <div class="mx-auto flex w-full max-w-2xl">
+          <div
+            class="flex h-11 w-full min-w-0 items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition focus-within:border-orange-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-100"
+          >
+            <input
+              type="text"
+              placeholder="Search for products..."
+              class="min-w-0 flex-1 border-0 bg-transparent px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400"
+            />
+
+            <button
+              type="button"
+              class="flex h-full w-12 shrink-0 items-center justify-center bg-orange-500 text-white transition hover:bg-orange-600"
+              aria-label="Search"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="ml-auto flex shrink-0 items-center gap-2 sm:gap-4">
+        <!-- Account -->
+        <button
+          type="button"
+          class="hidden items-center gap-2 rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-orange-500 lg:flex"
+        >
+          <i class="fa-regular fa-user text-xl"></i>
+
+          <div class="text-left">
+            <p class="text-[10px] text-slate-400">Welcome</p>
+            <p class="text-xs font-semibold text-slate-700">Account</p>
+          </div>
+        </button>
+
+        <!-- Wishlist -->
+        <button
+          type="button"
+          (click)="navigateToWishlist()"
+          class="flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 transition hover:bg-orange-50 hover:text-orange-500"
+          aria-label="Wishlist"
+        >
+          <i class="fa-regular fa-heart text-xl"></i>
+        </button>
+
+        <!-- Cart -->
+        <button
+          type="button"
+          class="relative flex h-10 w-10 items-center justify-center rounded-lg text-slate-600 transition hover:bg-orange-50 hover:text-orange-500"
+          aria-label="Shopping cart"
+          (click)="navigateToCart()"
+        >
+          <i class="fa-solid fa-cart-shopping text-xl"></i>
+
+          @if (cartService?.cart()?.total_items! > 0) {
+            <span
+              class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-orange-500 px-1 text-[10px] font-bold text-white"
+            >
+              {{ cartService.cart().total_items }}
+            </span>
+          }
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          type="button"
+          (click)="toggleMobileNav()"
+          class="flex h-10 w-10 items-center justify-center rounded-lg text-slate-700 transition hover:bg-slate-100 md:hidden"
+          aria-label="Toggle navigation"
+        >
+          @if (showMobileNav()) {
+            <i class="fa-solid fa-xmark text-xl"></i>
+          } @else {
+            <i class="fa-solid fa-bars text-xl"></i>
+          }
+        </button>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         MOBILE SEARCH
+    ====================================================== -->
+
+    <div class="pb-3 md:hidden">
+      <div
+        class="flex h-11 w-full items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50 focus-within:border-orange-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-100"
+      >
+        <input
+          type="text"
+          placeholder="Search products..."
+          class="min-w-0 flex-1 border-0 bg-transparent px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400"
+        />
+
+        <button
+          type="button"
+          class="flex h-full w-12 shrink-0 items-center justify-center bg-orange-500 text-white"
+          aria-label="Search"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         DESKTOP CATEGORY NAVIGATION
+    ====================================================== -->
+
+    <nav class="hidden border-t border-slate-100 md:block">
+      <div class="flex h-12 items-center justify-between">
+        <div class="flex items-center gap-7 text-sm font-medium text-slate-600">
+          <button
+            type="button"
+            (click)="navigateToProducts()"
+            class="transition hover:text-orange-500"
+          >
+            Shop All
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('electronics')"
+            class="transition hover:text-orange-500"
+          >
+            Electronics
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('fashion')"
+            class="transition hover:text-orange-500"
+          >
+            Fashion
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('home-living')"
+            class="transition hover:text-orange-500"
+          >
+            Home & Living
+          </button>
+
+          <button type="button" class="transition hover:text-orange-500">Beauty</button>
+
+          <button
+            type="button"
+            class="flex items-center gap-1 font-semibold text-orange-500 transition hover:text-orange-600"
+          >
+            Deals
+            <span class="rounded-full bg-orange-100 px-2 py-0.5 text-[9px] font-bold uppercase">
+              Sale
+            </span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs text-slate-400">
+          <i class="fa-solid fa-truck-fast text-orange-500"></i>
+          <span>Fast & Reliable Delivery</span>
+        </div>
+      </div>
+    </nav>
   </div>
+
+  <!-- =======================================================
+       MOBILE NAVIGATION
+  ======================================================== -->
+
+  @if (showMobileNav()) {
+    <div class="border-t border-slate-200 bg-white shadow-lg md:hidden">
+      <div class="mx-auto w-full max-w-7xl px-4 py-4 sm:px-6">
+        <nav class="flex flex-col gap-1">
+          <button
+            type="button"
+            (click)="navigateToProducts(); toggleMobileNav()"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-slate-700 transition hover:bg-orange-50 hover:text-orange-500"
+          >
+            <i class="fa-solid fa-store w-5 text-center"></i>
+            <span>Shop All</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('electronics'); toggleMobileNav()"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-slate-700 transition hover:bg-orange-50 hover:text-orange-500"
+          >
+            <i class="fa-solid fa-mobile-screen-button w-5 text-center"></i>
+            <span>Electronics</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('fashion'); toggleMobileNav()"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-slate-700 transition hover:bg-orange-50 hover:text-orange-500"
+          >
+            <i class="fa-solid fa-shirt w-5 text-center"></i>
+            <span>Fashion</span>
+          </button>
+
+          <button
+            type="button"
+            (click)="navigateToCategory('home-living'); toggleMobileNav()"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-slate-700 transition hover:bg-orange-50 hover:text-orange-500"
+          >
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span>Home & Living</span>
+          </button>
+
+          <button
+            type="button"
+            class="flex items-center gap-3 rounded-xl px-4 py-3 text-left font-medium text-slate-700 transition hover:bg-orange-50 hover:text-orange-500"
+          >
+            <i class="fa-solid fa-wand-magic-sparkles w-5 text-center"></i>
+            <span>Beauty</span>
+          </button>
+
+          <button
+            type="button"
+            class="flex items-center gap-3 rounded-xl bg-orange-50 px-4 py-3 text-left font-semibold text-orange-500 transition hover:bg-orange-100"
+          >
+            <i class="fa-solid fa-tags w-5 text-center"></i>
+            <span>Deals & Offers</span>
+          </button>
+        </nav>
+
+        <!-- Mobile Account -->
+        <div class="mt-4 border-t border-slate-100 pt-4">
+          <button
+            type="button"
+            class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-slate-700 transition hover:bg-slate-50"
+          >
+            <i class="fa-regular fa-user w-5 text-center"></i>
+
+            <div>
+              <p class="text-sm font-semibold">My Account</p>
+              <p class="text-xs text-slate-400">Sign in or create an account</p>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</header>
+
+<!-- =========================================================
+     HERO SECTION
+========================================================= -->
+
+<section class="relative overflow-hidden bg-slate-950 text-white">
+  <div class="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-orange-500/20 blur-3xl"></div>
+
+  <div class="absolute -bottom-40 -left-32 h-96 w-96 rounded-full bg-orange-400/10 blur-3xl"></div>
+
   <div
-    id="items"
-    class="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4 place-items-center"
+    class="relative mx-auto grid w-full max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24 lg:px-8"
   >
-    <div class="w-3/4 rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
-      <div class="relative">
-        <img src="/electronics.png" alt="" />
-        <div
-          class="absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-gradient-to-t from-zinc-950"
+    <!-- Hero Content -->
+    <div>
+      <div
+        class="mb-5 inline-flex items-center gap-2 rounded-full border border-orange-500/30 bg-orange-500/10 px-4 py-2 text-sm font-medium text-orange-300"
+      >
+        <i class="fa-solid fa-bolt"></i>
+        <span>Everything you need. One place.</span>
+      </div>
+
+      <h2
+        class="max-w-2xl text-4xl font-black leading-tight tracking-tight sm:text-5xl lg:text-6xl"
+      >
+        Shop smarter.
+        <span class="text-orange-500">Live better.</span>
+      </h2>
+
+      <p class="mt-6 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
+        Discover quality electronics, fashion, home essentials and more. Everything you need,
+        delivered right to your doorstep.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <button
+          type="button"
+          (click)="navigateToProducts()"
+          class="inline-flex items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 py-3.5 font-bold text-white shadow-lg shadow-orange-500/20 transition hover:bg-orange-600"
         >
-          <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
+          Shop Now
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+        <button
+          type="button"
+          (click)="navigateToCategory('electronics')"
+          class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 font-semibold text-white transition hover:border-orange-500 hover:text-orange-400"
+        >
+          Explore Electronics
+        </button>
+      </div>
+
+      <!-- Hero Stats -->
+      <div class="mt-10 grid max-w-lg grid-cols-3 gap-4 border-t border-slate-800 pt-7">
+        <div>
+          <p class="text-2xl font-black">500+</p>
+          <p class="mt-1 text-xs text-slate-400">Products</p>
+        </div>
+
+        <div>
+          <p class="text-2xl font-black">50K+</p>
+          <p class="mt-1 text-xs text-slate-400">Customers</p>
+        </div>
+
+        <div>
+          <p class="flex items-center gap-1 text-2xl font-black">
+            4.8
+            <i class="fa-solid fa-star text-sm text-orange-400"></i>
+          </p>
+          <p class="mt-1 text-xs text-slate-400">Customer Rating</p>
         </div>
       </div>
-      <div class="px-1">
-        <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-        <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-        <p class="text-lg">Rating</p>
-        <p class="font-semibold">$199.99</p>
-      </div>
-      <button
-        class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-      >
-        <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-      </button>
     </div>
-    <div class="w-3/4 rounded-t-lg overflow-hidden relative bg bg-white pb-3 mb-2">
-      <div class="relative">
-        <img src="/electronics.png" alt="" />
+
+    <!-- Hero Image -->
+    <div class="relative hidden md:block">
+      <div class="absolute inset-0 rounded-[2rem] bg-orange-500/20 blur-3xl"></div>
+
+      <div
+        class="relative overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl"
+      >
+        <img
+          src="/electronics.png"
+          alt="Electronics collection"
+          class="h-[450px] w-full object-cover"
+        />
+
         <div
-          class="absolute top-0 bottom-0 right-0 left-0 flex items-center justify-center bg-gradient-to-t from-zinc-950"
+          class="absolute bottom-5 left-5 right-5 rounded-2xl border border-white/10 bg-slate-950/80 p-4 backdrop-blur-md"
         >
-          <button class="bg-orange-400 h-9 px-4 rounded-xl">Quick View</button>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-xs text-slate-400">Featured Collection</p>
+              <p class="mt-1 font-bold">Latest Electronics</p>
+            </div>
+
+            <button
+              type="button"
+              (click)="navigateToCategory('electronics')"
+              class="flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-white transition hover:bg-orange-600"
+            >
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="px-1">
-        <p class="bg-black text-white px-3 rounded-xl w-fit absolute top-3 left-2">Best Seller</p>
-        <h2 class="font-bold text-xl">Wireless Headphones Pro</h2>
-        <p class="text-lg">Rating</p>
-        <p class="font-semibold">$199.99</p>
-      </div>
-      <button
-        class="flex items-center justify-center bg-black text-white px-6 w-11/12 rounded-lg mx-auto"
-      >
-        <i class="fa-solid fa-cart-arrow-down"></i>Add to Cart
-      </button>
     </div>
   </div>
-</div>
+</section>
+
+<!-- =========================================================
+     BENEFITS
+========================================================= -->
+
+<section class="border-b border-slate-100 bg-white">
+  <div
+    class="mx-auto grid w-full max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:px-6 md:grid-cols-4 lg:px-8"
+  >
+    <div class="flex items-center gap-3">
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500"
+      >
+        <i class="fa-solid fa-truck-fast text-lg"></i>
+      </div>
+
+      <div>
+        <p class="text-sm font-bold text-slate-800">Fast Delivery</p>
+        <p class="text-xs text-slate-400">Quick doorstep delivery</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500"
+      >
+        <i class="fa-solid fa-shield-halved text-lg"></i>
+      </div>
+
+      <div>
+        <p class="text-sm font-bold text-slate-800">Secure Payment</p>
+        <p class="text-xs text-slate-400">100% secure checkout</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500"
+      >
+        <i class="fa-solid fa-rotate-left text-lg"></i>
+      </div>
+
+      <div>
+        <p class="text-sm font-bold text-slate-800">Easy Returns</p>
+        <p class="text-xs text-slate-400">Hassle-free returns</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div
+        class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-500"
+      >
+        <i class="fa-solid fa-headset text-lg"></i>
+      </div>
+
+      <div>
+        <p class="text-sm font-bold text-slate-800">24/7 Support</p>
+        <p class="text-xs text-slate-400">We're here to help</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CATEGORIES
+========================================================= -->
+
+<section class="bg-slate-50">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500">Shop by category</p>
+
+        <h2 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Find what you need</h2>
+
+        <p class="mt-2 text-slate-500">Explore our most popular categories.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToProducts()"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 transition hover:text-orange-600 sm:flex"
+      >
+        View All
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (category of categories; track category.id) {
+        <button
+          type="button"
+          (click)="navigateToCategory(category.id)"
+          class="group relative overflow-hidden rounded-2xl bg-white text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+        >
+          <div class="aspect-square overflow-hidden">
+            <img
+              [src]="category.image"
+              [alt]="category.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          <div
+            class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 via-slate-950/50 to-transparent p-4 pt-16 text-white"
+          >
+            <p class="text-lg font-bold">
+              {{ category.name }}
+            </p>
+
+            <p class="mt-1 text-xs text-slate-300">
+              {{ category.description }}
+            </p>
+
+            <p class="mt-2 text-xs font-medium text-orange-400">
+              {{ category.productCount }}+ products
+            </p>
+          </div>
+        </button>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FLASH SALE
+========================================================= -->
+
+<section class="bg-white">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <div class="flex items-center gap-2">
+          <span
+            class="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500 text-white"
+          >
+            <i class="fa-solid fa-bolt"></i>
+          </span>
+
+          <p class="text-sm font-bold uppercase tracking-widest text-orange-500">Limited time</p>
+        </div>
+
+        <h2 class="mt-3 text-3xl font-black tracking-tight text-slate-900">Flash Sale</h2>
+
+        <p class="mt-2 text-slate-500">Grab these deals before they're gone.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToProducts()"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 transition hover:text-orange-600 sm:flex"
+      >
+        See All Deals
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (product of dealsProducts; track product.id) {
+        <article
+          class="group overflow-hidden rounded-2xl border border-slate-100 bg-white transition duration-300 hover:-translate-y-1 hover:border-orange-100 hover:shadow-xl"
+        >
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+
+            @if (product.discount) {
+              <span
+                class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white"
+              >
+                -{{ product.discount }}%
+              </span>
+            }
+
+            <button
+              type="button"
+              (click)="addToWishlist(product)"
+              class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-600 shadow-sm backdrop-blur transition hover:bg-orange-500 hover:text-white"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+
+          <div class="p-4">
+            <p class="text-xs font-medium text-orange-500">
+              {{ product.category }}
+            </p>
+
+            <button type="button" (click)="viewProduct(product.id)" class="mt-1 block text-left">
+              <h3 class="line-clamp-2 font-bold text-slate-800 transition hover:text-orange-500">
+                {{ product.name }}
+              </h3>
+            </button>
+
+            <div class="mt-2 flex items-center gap-1 text-xs text-slate-400">
+              <i class="fa-solid fa-star text-orange-400"></i>
+              <span>{{ product.reviews }} reviews</span>
+            </div>
+
+            <div class="mt-3 flex items-end gap-2">
+              <span class="text-lg font-black text-slate-900"> ${{ product.price }} </span>
+
+              @if (product.oldPrice) {
+                <span class="text-xs text-slate-400 line-through"> ${{ product.oldPrice }} </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="addToCart(product)"
+              class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500"
+            >
+              <i class="fa-solid fa-cart-plus"></i>
+              Add to Cart
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FEATURED PRODUCTS
+========================================================= -->
+
+<section class="bg-slate-50">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500">
+          Handpicked for you
+        </p>
+
+        <h2 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Featured Products</h2>
+
+        <p class="mt-2 text-slate-500">Popular products our customers love.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToProducts()"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 transition hover:text-orange-600 sm:flex"
+      >
+        View All
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      @for (product of featuredProducts; track product.id) {
+        <article
+          class="group overflow-hidden rounded-2xl border border-slate-100 bg-white transition duration-300 hover:-translate-y-1 hover:border-orange-100 hover:shadow-xl"
+        >
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+
+            @if (product.discount) {
+              <span
+                class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white"
+              >
+                -{{ product.discount }}%
+              </span>
+            }
+
+            <button
+              type="button"
+              (click)="addToWishlist(product)"
+              class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-600 shadow-sm transition hover:bg-orange-500 hover:text-white"
+              aria-label="Add to wishlist"
+            >
+              <i class="fa-regular fa-heart"></i>
+            </button>
+          </div>
+
+          <div class="p-4">
+            <p class="text-xs font-medium text-orange-500">
+              {{ product.category }}
+            </p>
+
+            <button type="button" (click)="viewProduct(product.id)" class="mt-1 block text-left">
+              <h3 class="line-clamp-2 font-bold text-slate-800 transition hover:text-orange-500">
+                {{ product.name }}
+              </h3>
+            </button>
+
+            <div class="mt-2 flex items-center gap-1 text-xs text-slate-400">
+              <i class="fa-solid fa-star text-orange-400"></i>
+              <span>{{ product.reviews }} reviews</span>
+            </div>
+
+            <div class="mt-3 flex items-center gap-2">
+              <span class="text-lg font-black text-slate-900"> ${{ product.price }} </span>
+
+              @if (product.oldPrice) {
+                <span class="text-xs text-slate-400 line-through"> ${{ product.oldPrice }} </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="addToCart(product)"
+              class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500"
+            >
+              <i class="fa-solid fa-cart-plus"></i>
+              Add to Cart
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     PROMOTIONAL BANNER
+========================================================= -->
+
+<section class="bg-orange-500">
+  <div
+    class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-6 px-4 py-12 sm:px-6 md:flex-row lg:px-8"
+  >
+    <div class="text-center text-white md:text-left">
+      <p class="text-sm font-bold uppercase tracking-widest text-orange-100">New customer offer</p>
+
+      <h2 class="mt-2 text-3xl font-black">Get 10% off your first order</h2>
+
+      <p class="mt-2 text-orange-100">Start shopping today and enjoy an instant discount.</p>
+    </div>
+
+    <button
+      type="button"
+      (click)="navigateToProducts()"
+      class="shrink-0 rounded-xl bg-white px-7 py-3.5 font-bold text-orange-500 shadow-lg transition hover:bg-slate-50"
+    >
+      Start Shopping
+    </button>
+  </div>
+</section>
+
+<!-- =========================================================
+     ELECTRONICS
+========================================================= -->
+
+<section class="bg-white">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500">Tech & gadgets</p>
+
+        <h2 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Electronics</h2>
+
+        <p class="mt-2 text-slate-500">Upgrade your everyday technology.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToCategory('electronics')"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 sm:flex"
+      >
+        Shop Electronics
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (product of electronicsProducts; track product.id) {
+        <article
+          class="group overflow-hidden rounded-2xl border border-slate-100 bg-white transition hover:-translate-y-1 hover:shadow-xl"
+        >
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+
+            @if (product.discount) {
+              <span
+                class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white"
+              >
+                -{{ product.discount }}%
+              </span>
+            }
+          </div>
+
+          <div class="p-4">
+            <p class="text-xs text-orange-500">
+              {{ product.category }}
+            </p>
+
+            <h3 class="mt-1 line-clamp-2 font-bold text-slate-800">
+              {{ product.name }}
+            </h3>
+
+            <div class="mt-2 flex items-center gap-1 text-xs text-slate-400">
+              <i class="fa-solid fa-star text-orange-400"></i>
+              {{ product.reviews }} reviews
+            </div>
+
+            <div class="mt-3 flex items-center gap-2">
+              <span class="font-black text-slate-900"> ${{ product.price }} </span>
+
+              @if (product.oldPrice) {
+                <span class="text-xs text-slate-400 line-through"> ${{ product.oldPrice }} </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="addToCart(product)"
+              class="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FASHION
+========================================================= -->
+
+<section class="bg-slate-50">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500">Style & comfort</p>
+
+        <h2 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Fashion</h2>
+
+        <p class="mt-2 text-slate-500">Find your next favorite look.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToCategory('fashion')"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 sm:flex"
+      >
+        Shop Fashion
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (product of fashionProducts; track product.id) {
+        <article
+          class="group overflow-hidden rounded-2xl border border-slate-100 bg-white transition hover:-translate-y-1 hover:shadow-xl"
+        >
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+
+            @if (product.discount) {
+              <span
+                class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white"
+              >
+                -{{ product.discount }}%
+              </span>
+            }
+          </div>
+
+          <div class="p-4">
+            <p class="text-xs text-orange-500">
+              {{ product.category }}
+            </p>
+
+            <h3 class="mt-1 line-clamp-2 font-bold text-slate-800">
+              {{ product.name }}
+            </h3>
+
+            <div class="mt-2 text-xs text-slate-400">
+              <i class="fa-solid fa-star text-orange-400"></i>
+              {{ product.reviews }} reviews
+            </div>
+
+            <div class="mt-3 flex items-center gap-2">
+              <span class="font-black text-slate-900"> ${{ product.price }} </span>
+
+              @if (product.oldPrice) {
+                <span class="text-xs text-slate-400 line-through"> ${{ product.oldPrice }} </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="addToCart(product)"
+              class="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     HOME & LIVING
+========================================================= -->
+
+<section class="bg-white">
+  <div class="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-sm font-bold uppercase tracking-widest text-orange-500">Make it yours</p>
+
+        <h2 class="mt-2 text-3xl font-black tracking-tight text-slate-900">Home & Living</h2>
+
+        <p class="mt-2 text-slate-500">Make your space comfortable and beautiful.</p>
+      </div>
+
+      <button
+        type="button"
+        (click)="navigateToCategory('home-living')"
+        class="hidden items-center gap-2 text-sm font-bold text-orange-500 sm:flex"
+      >
+        Shop Home & Living
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      @for (product of homeLivingProducts; track product.id) {
+        <article
+          class="group overflow-hidden rounded-2xl border border-slate-100 bg-white transition hover:-translate-y-1 hover:shadow-xl"
+        >
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img
+              [src]="product.image"
+              [alt]="product.name"
+              class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            />
+
+            @if (product.discount) {
+              <span
+                class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white"
+              >
+                -{{ product.discount }}%
+              </span>
+            }
+          </div>
+
+          <div class="p-4">
+            <p class="text-xs text-orange-500">
+              {{ product.category }}
+            </p>
+
+            <h3 class="mt-1 line-clamp-2 font-bold text-slate-800">
+              {{ product.name }}
+            </h3>
+
+            <div class="mt-2 text-xs text-slate-400">
+              <i class="fa-solid fa-star text-orange-400"></i>
+              {{ product.reviews }} reviews
+            </div>
+
+            <div class="mt-3 flex items-center gap-2">
+              <span class="font-black text-slate-900"> ${{ product.price }} </span>
+
+              @if (product.oldPrice) {
+                <span class="text-xs text-slate-400 line-through"> ${{ product.oldPrice }} </span>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="addToCart(product)"
+              class="mt-4 w-full rounded-xl bg-slate-900 py-2.5 text-sm font-bold text-white transition hover:bg-orange-500"
+            >
+              Add to Cart
+            </button>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     NEWSLETTER
+========================================================= -->
+
+<section class="bg-slate-950 text-white">
+  <div
+    class="mx-auto flex w-full max-w-7xl flex-col items-center justify-between gap-8 px-4 py-16 sm:px-6 md:flex-row lg:px-8"
+  >
+    <div class="max-w-xl text-center md:text-left">
+      <p class="text-sm font-bold uppercase tracking-widest text-orange-400">Stay in the loop</p>
+
+      <h2 class="mt-2 text-3xl font-black">Get the latest deals</h2>
+
+      <p class="mt-3 text-slate-400">
+        Subscribe to our newsletter and be the first to know about new products, exclusive deals and
+        special offers.
+      </p>
+    </div>
+
+    <form class="flex w-full max-w-md flex-col gap-3 sm:flex-row">
+      <input
+        type="email"
+        placeholder="Enter your email"
+        class="min-w-0 flex-1 rounded-xl border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-500 focus:border-orange-500"
+      />
+
+      <button
+        type="submit"
+        class="rounded-xl bg-orange-500 px-6 py-3 text-sm font-bold text-white transition hover:bg-orange-600"
+      >
+        Subscribe
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="bg-slate-950 text-slate-400">
+  <div class="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-xl font-black text-white"
+          >
+            P
+          </div>
+
+          <h2 class="text-xl font-extrabold text-white">
+            Pocket<span class="text-orange-500">Duka</span>
+          </h2>
+        </div>
+
+        <p class="mt-4 max-w-xs text-sm leading-6">
+          Your trusted online marketplace for quality products at great prices.
+        </p>
+
+        <div class="mt-5 flex gap-3">
+          <button
+            type="button"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 transition hover:bg-orange-500 hover:text-white"
+            aria-label="Facebook"
+          >
+            <i class="fa-brands fa-facebook-f"></i>
+          </button>
+
+          <button
+            type="button"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 transition hover:bg-orange-500 hover:text-white"
+            aria-label="Instagram"
+          >
+            <i class="fa-brands fa-instagram"></i>
+          </button>
+
+          <button
+            type="button"
+            class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 transition hover:bg-orange-500 hover:text-white"
+            aria-label="Twitter"
+          >
+            <i class="fa-brands fa-x-twitter"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Shop -->
+      <div>
+        <h3 class="font-bold text-white">Shop</h3>
+
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <button
+              type="button"
+              (click)="navigateToProducts()"
+              class="transition hover:text-orange-500"
+            >
+              All Products
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              (click)="navigateToCategory('electronics')"
+              class="transition hover:text-orange-500"
+            >
+              Electronics
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              (click)="navigateToCategory('fashion')"
+              class="transition hover:text-orange-500"
+            >
+              Fashion
+            </button>
+          </li>
+
+          <li>
+            <button
+              type="button"
+              (click)="navigateToCategory('home-living')"
+              class="transition hover:text-orange-500"
+            >
+              Home & Living
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h3 class="font-bold text-white">Customer Service</h3>
+
+        <ul class="mt-4 space-y-3 text-sm">
+          <li>
+            <button type="button" class="transition hover:text-orange-500">Contact Us</button>
+          </li>
+
+          <li>
+            <button type="button" class="transition hover:text-orange-500">
+              Shipping Information
+            </button>
+          </li>
+
+          <li>
+            <button type="button" class="transition hover:text-orange-500">
+              Returns & Refunds
+            </button>
+          </li>
+
+          <li>
+            <button type="button" class="transition hover:text-orange-500">FAQs</button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="font-bold text-white">Get in Touch</h3>
+
+        <ul class="mt-4 space-y-4 text-sm">
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-location-dot mt-1 text-orange-500"></i>
+            <span>Nairobi, Kenya</span>
+          </li>
+
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-envelope mt-1 text-orange-500"></i>
+            <span>support@pocketduka.com</span>
+          </li>
+
+          <li class="flex items-start gap-3">
+            <i class="fa-solid fa-phone mt-1 text-orange-500"></i>
+            <span>+254 700 000 000</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div
+      class="mt-12 flex flex-col gap-4 border-t border-slate-800 pt-6 text-xs sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© 2026 PocketDuka. All rights reserved.</p>
+
+      <div class="flex gap-5">
+        <button type="button" class="transition hover:text-orange-500">Privacy Policy</button>
+
+        <button type="button" class="transition hover:text-orange-500">Terms of Service</button>
+      </div>
+    </div>
+  </div>
+</footer>

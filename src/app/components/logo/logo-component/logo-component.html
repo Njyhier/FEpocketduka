@@ -1,7 +1,18 @@
-<div (click)="goToHome()" id="container" class="w-fit h-fit flex items-center p-2 pl-0 gap-1">
-  <img [src]="logo_image()" alt="PoketDuka" class="w-10 h-10 rounded-lg" />
-  <h1 class="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-    <span class="font-extrabold text-3xl">P</span><span class="font-bold text-xl">oket</span
-    ><span class="font-extrabold text-3xl">D</span><span class="font-bold text-xl">uka</span>
+<div
+  (click)="goToHome()"
+  id="container"
+  class="flex w-fit shrink-0 cursor-pointer items-center gap-2 p-2 pl-0"
+>
+  <img
+    [src]="logo_image()"
+    alt="PocketDuka"
+    class="h-10 w-10 shrink-0 rounded-lg object-cover shadow-sm"
+  />
+
+  <h1
+    class="whitespace-nowrap bg-gradient-to-r from-orange-500 to-purple-600 bg-clip-text text-transparent"
+  >
+    <span class="text-3xl font-extrabold">P</span><span class="text-xl font-bold">oket</span
+    ><span class="text-3xl font-extrabold">D</span><span class="text-xl font-bold">uka</span>
   </h1>
 </div>

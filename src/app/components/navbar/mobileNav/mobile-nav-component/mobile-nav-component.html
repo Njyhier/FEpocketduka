@@ -1,14 +1,67 @@
 <nav
   [ngClass]="
-    navService.showMobileNav ? 'flex z-50 md:hidden bg-slate-950 text-white p-4 mb-56' : 'hidden'
+    navService.showMobileNav
+      ? 'absolute left-0 right-0 top-full z-50 block border-t border-slate-800 bg-slate-950 px-4 py-4 shadow-xl md:hidden'
+      : 'hidden'
   "
 >
-  <app-searchbar-component></app-searchbar-component>
-  <ul class="flex-row [&>*]:my-1">
-    <li><button (click)="goToHome()">Home</button></li>
-    <li><button (click)="navigateToProducts()">Shop</button></li>
-    <li>Deals</li>
-    <li>About</li>
-    <li>Contact</li>
+  <!-- Mobile Search -->
+  <div class="mb-4 w-full">
+    <app-searchbar-component></app-searchbar-component>
+  </div>
+
+  <!-- Mobile Links -->
+  <ul class="flex flex-col gap-1">
+    <li>
+      <button
+        type="button"
+        (click)="goToHome()"
+        class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-800 hover:text-orange-400"
+      >
+        <i class="fa-solid fa-house mr-3 w-5 text-orange-400"></i>
+        Home
+      </button>
+    </li>
+
+    <li>
+      <button
+        type="button"
+        (click)="navigateToProducts()"
+        class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-800 hover:text-orange-400"
+      >
+        <i class="fa-solid fa-store mr-3 w-5 text-orange-400"></i>
+        Shop
+      </button>
+    </li>
+
+    <li>
+      <button
+        type="button"
+        class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-800 hover:text-orange-400"
+      >
+        <i class="fa-solid fa-fire mr-3 w-5 text-orange-400"></i>
+        Deals
+      </button>
+    </li>
+
+    <li>
+      <button
+        type="button"
+        class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-800 hover:text-orange-400"
+      >
+        <i class="fa-solid fa-circle-info mr-3 w-5 text-orange-400"></i>
+        About
+      </button>
+    </li>
+
+    <li>
+      <button
+        type="button"
+        class="w-full rounded-lg px-3 py-3 text-left text-sm font-medium text-white transition hover:bg-slate-800 hover:text-orange-400"
+      >
+        <i class="fa-solid fa-envelope mr-3 w-5 text-orange-400"></i>
+        Contact
+      </button>
+    </li>
   </ul>
 </nav>
