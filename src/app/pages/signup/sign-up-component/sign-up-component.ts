@@ -10,8 +10,6 @@ import {
 import { passwordMatchValidator } from '../../../validators/password-match.validator';
 import { IUser } from '../../../interfaces/iuser';
 import { UserService } from '../../../services/user/user-service';
-import { log } from 'console';
-import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
