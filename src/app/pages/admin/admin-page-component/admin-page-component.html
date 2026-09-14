@@ -1,4 +1,4 @@
-<button (click)="toggleAside()">Show Sidebar</button>
+<!-- <button (click)="toggleAside()">Show Sidebar</button>
 
 <div class="container h-fit min-h-dvh flex gap-1 justify-between w-dvw">
   <aside
@@ -15,5 +15,200 @@
   </aside>
   <div class="w-full h-fit">
     <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+<div class="h-dvh overflow-hidden bg-slate-100">
+  <div class="flex h-full">
+    <!-- ================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================= -->
+
+    <aside
+      [ngClass]="showAside ? 'flex' : 'hidden lg:flex'"
+      class="fixed left-0 top-0 z-40 h-dvh w-72 shrink-0 flex-col overflow-hidden border-r border-slate-800 bg-slate-950 text-white shadow-xl lg:sticky lg:top-0"
+    >
+      <!-- Logo -->
+      <div class="flex h-20 shrink-0 items-center border-b border-slate-800 px-6">
+        <div class="flex items-center gap-3">
+          <div
+            class="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500 shadow-lg shadow-orange-500/20"
+          >
+            <i class="fa-solid fa-bag-shopping text-lg"></i>
+          </div>
+
+          <div>
+            <h1 class="text-lg font-bold tracking-tight">PocketDuka</h1>
+
+            <p class="text-xs text-slate-400">Admin Dashboard</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="shrink-0 px-4 py-6">
+        <p class="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          Management
+        </p>
+
+        <ul class="space-y-2">
+          <!-- Orders -->
+          <li>
+            <button
+              type="button"
+              (click)="goToOrders()"
+              class="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition group-hover:bg-orange-500/10 group-hover:text-orange-400"
+              >
+                <i class="fa-solid fa-box"></i>
+              </span>
+
+              <span class="flex-1"> Orders </span>
+
+              <i
+                class="fa-solid fa-chevron-right text-xs text-slate-600 transition group-hover:translate-x-1 group-hover:text-slate-400"
+              ></i>
+            </button>
+          </li>
+
+          <!-- Add Product -->
+          <li>
+            <button
+              type="button"
+              (click)="goToAddProduct()"
+              class="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition group-hover:bg-orange-500/10 group-hover:text-orange-400"
+              >
+                <i class="fa-solid fa-plus"></i>
+              </span>
+
+              <span class="flex-1"> Add Product </span>
+
+              <i
+                class="fa-solid fa-chevron-right text-xs text-slate-600 transition group-hover:translate-x-1 group-hover:text-slate-400"
+              ></i>
+            </button>
+          </li>
+        </ul>
+
+        <!-- Store -->
+        <p class="mb-3 mt-8 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+          Store
+        </p>
+
+        <ul class="space-y-2">
+          <!-- Inventory -->
+          <li>
+            <button
+              type="button"
+              class="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition group-hover:bg-orange-500/10 group-hover:text-orange-400"
+              >
+                <i class="fa-solid fa-boxes-stacked"></i>
+              </span>
+
+              <span class="flex-1"> Inventory </span>
+
+              <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
+            </button>
+          </li>
+
+          <!-- Analytics -->
+          <li>
+            <button
+              type="button"
+              class="group flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-medium text-slate-300 transition hover:bg-slate-800 hover:text-white"
+            >
+              <span
+                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-400 transition group-hover:bg-orange-500/10 group-hover:text-orange-400"
+              >
+                <i class="fa-solid fa-chart-line"></i>
+              </span>
+
+              <span class="flex-1"> Analytics </span>
+
+              <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Admin -->
+      <div class="mt-auto shrink-0 border-t border-slate-800 p-4">
+        <div class="flex items-center gap-3 rounded-xl bg-slate-900 p-3">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-500 font-bold text-white"
+          >
+            A
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <p class="truncate text-sm font-semibold text-white">Admin</p>
+
+            <p class="truncate text-xs text-slate-500">Store Administrator</p>
+          </div>
+
+          <button type="button" class="text-slate-500 transition hover:text-white">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ================================= -->
+    <!-- MAIN AREA -->
+    <!-- ================================= -->
+
+    <div class="flex min-h-0 min-w-0 flex-1 flex-col">
+      <!-- Mobile Header -->
+      <div
+        class="flex shrink-0 items-center border-b border-slate-200 bg-white px-4 py-3 lg:hidden"
+      >
+        <button
+          type="button"
+          (click)="toggleAside()"
+          class="inline-flex items-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+        >
+          <i class="fa-solid fa-bars"></i>
+          Menu
+        </button>
+      </div>
+
+      <!-- Top Bar -->
+      <header
+        class="flex h-20 shrink-0 items-center justify-between border-b border-slate-200 bg-white px-6"
+      >
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Dashboard</h2>
+
+          <p class="text-xs text-slate-500">Manage your PocketDuka store</p>
+        </div>
+
+        <button
+          type="button"
+          class="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-500 transition hover:bg-slate-50 hover:text-slate-900"
+        >
+          <i class="fa-regular fa-bell"></i>
+
+          <span
+            class="absolute right-2 top-2 h-2 w-2 rounded-full bg-orange-500 ring-2 ring-white"
+          ></span>
+        </button>
+      </header>
+
+      <!-- ================================= -->
+      <!-- SCROLLABLE CONTENT ONLY -->
+      <!-- ================================= -->
+
+      <main class="min-h-0 min-w-0 flex-1 overflow-y-auto overflow-x-hidden p-4 sm:p-6 lg:p-8">
+        <router-outlet></router-outlet>
+      </main>
+    </div>
   </div>
 </div>

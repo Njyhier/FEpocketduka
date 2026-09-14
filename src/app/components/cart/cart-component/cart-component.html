@@ -1,4 +1,4 @@
-<div id="container" class="md:flx md:w-[80dvw] items-center justify-center pb-3 h-fit bg-back">
+<!-- <div id="container" class="md:flx md:w-[80dvw] items-center justify-center pb-3 h-fit bg-back">
   <div>
     <div class="flex justify-around w-3/4">
       <h2>My Cart</h2>
@@ -59,5 +59,286 @@
       Place Order
     </button>
     <hr />
+  </div>
+</div> -->
+
+<div class="min-h-dvh bg-slate-50">
+  <div class="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+    <!-- ====================================== -->
+    <!-- HEADER -->
+    <!-- ====================================== -->
+
+    <div class="mb-8">
+      <div class="flex items-center gap-2 text-sm text-slate-500">
+        <i class="fa-solid fa-house text-xs"></i>
+
+        <span>Home</span>
+
+        <i class="fa-solid fa-chevron-right text-[9px]"></i>
+
+        <span class="font-medium text-slate-800"> Cart </span>
+      </div>
+
+      <div class="mt-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <h1 class="text-3xl font-bold tracking-tight text-slate-900">My Cart</h1>
+
+          <p class="mt-1 text-sm text-slate-500">Review your items before placing your order.</p>
+        </div>
+
+        <div
+          class="inline-flex w-fit items-center gap-2 rounded-full bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-600"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+
+          {{ cartService.cart().total_items }}
+          {{ cartService.cart().total_items === 1 ? 'Item' : 'Items' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================== -->
+    <!-- CART CONTENT -->
+    <!-- ====================================== -->
+
+    @if ((cartService.cart().items ?? []).length > 0) {
+      <div class="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+        <!-- ================================== -->
+        <!-- CART ITEMS -->
+        <!-- ================================== -->
+
+        <section class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <!-- Section Header -->
+          <div
+            class="flex items-center justify-between border-b border-slate-100 px-5 py-5 sm:px-6"
+          >
+            <div>
+              <h2 class="text-base font-bold text-slate-900">Cart Items</h2>
+
+              <p class="mt-1 text-xs text-slate-400">Your selected products</p>
+            </div>
+
+            <span class="text-sm font-semibold text-slate-500">
+              {{ cartService.cart().total_items }}
+              items
+            </span>
+          </div>
+
+          <!-- Items -->
+          <div class="divide-y divide-slate-100">
+            @for (i of cartService.cart().items; track i.id) {
+              <div class="p-5 transition hover:bg-slate-50/60 sm:p-6">
+                <div class="flex flex-col gap-5 sm:flex-row">
+                  <!-- Product Image -->
+                  <div
+                    class="h-32 w-full shrink-0 overflow-hidden rounded-2xl bg-slate-100 sm:h-32 sm:w-32"
+                  >
+                    <img [src]="i.image_url" [alt]="i.name" class="h-full w-full object-cover" />
+                  </div>
+
+                  <!-- Product Information -->
+                  <div class="flex min-w-0 flex-1 flex-col justify-between gap-4">
+                    <div>
+                      <p class="mb-1 text-xs font-medium uppercase tracking-wide text-orange-500">
+                        {{ i.category }}
+                      </p>
+
+                      <h3 class="text-base font-bold text-slate-900 sm:text-lg">
+                        {{ i.name }}
+                      </h3>
+
+                      <p class="mt-1 text-sm text-slate-500">
+                        KSH {{ i.price }}
+                        <span class="text-slate-400"> per item </span>
+                      </p>
+                    </div>
+
+                    <!-- Bottom Row -->
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                      <!-- Quantity -->
+                      <div>
+                        <p class="mb-1.5 text-xs font-medium text-slate-400">Quantity</p>
+
+                        <div
+                          class="flex h-10 items-center overflow-hidden rounded-xl border border-slate-200 bg-white"
+                        >
+                          <button
+                            type="button"
+                            (click)="decrementItemQuantity(i.id ?? '')"
+                            class="flex h-full w-10 items-center justify-center text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+                          >
+                            <i class="fa-solid fa-minus text-xs"></i>
+                          </button>
+
+                          <span
+                            class="flex h-full min-w-10 items-center justify-center border-x border-slate-200 px-3 text-sm font-bold text-slate-800"
+                          >
+                            {{ i.quantity }}
+                          </span>
+
+                          <button
+                            type="button"
+                            (click)="incrementItemQuantity(i.id ?? '')"
+                            class="flex h-full w-10 items-center justify-center text-slate-500 transition hover:bg-orange-50 hover:text-orange-500"
+                          >
+                            <i class="fa-solid fa-plus text-xs"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Subtotal -->
+                      <div class="text-right">
+                        <p class="mb-1.5 text-xs font-medium text-slate-400">Subtotal</p>
+
+                        <p class="text-base font-bold text-slate-900">KSH {{ i.subtotal }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <!-- ================================== -->
+        <!-- ORDER SUMMARY -->
+        <!-- ================================== -->
+
+        <aside class="rounded-2xl border border-slate-200 bg-white shadow-sm lg:sticky lg:top-6">
+          <!-- Header -->
+          <div class="border-b border-slate-100 px-5 py-5 sm:px-6">
+            <h2 class="text-lg font-bold text-slate-900">Order Summary</h2>
+
+            <p class="mt-1 text-xs text-slate-400">Review your order before payment.</p>
+          </div>
+
+          <div class="p-5 sm:p-6">
+            <!-- Items -->
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-slate-500"> Items </span>
+
+              <span class="text-sm font-semibold text-slate-800">
+                {{ cartService.cart().total_items }}
+              </span>
+            </div>
+
+            <!-- Subtotal -->
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-slate-500"> Subtotal </span>
+
+              <span class="text-sm font-semibold text-slate-800">
+                KSH {{ cartService.cart().subtotal }}
+              </span>
+            </div>
+
+            <!-- Shipping -->
+            <div class="mt-4 flex items-center justify-between">
+              <span class="text-sm text-slate-500"> Shipping </span>
+
+              <span class="text-sm font-semibold text-green-600"> FREE </span>
+            </div>
+
+            <!-- Divider -->
+            <div class="my-5 border-t border-slate-100"></div>
+
+            <!-- Total -->
+            <div class="flex items-end justify-between">
+              <div>
+                <p class="text-sm font-medium text-slate-500">Total</p>
+
+                <p class="mt-1 text-xs text-slate-400">Including all applicable charges</p>
+              </div>
+
+              <p class="text-xl font-extrabold text-slate-900">
+                KSH {{ cartService.cart().subtotal }}
+              </p>
+            </div>
+
+            <!-- ================================= -->
+            <!-- PAYMENT -->
+            <!-- ================================= -->
+
+            <div class="mt-7">
+              <label for="phone" class="mb-2 block text-sm font-semibold text-slate-700">
+                M-Pesa Phone Number
+              </label>
+
+              <div class="relative">
+                <div
+                  class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"
+                >
+                  <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+
+                <input
+                  id="phone"
+                  type="text"
+                  [formControl]="phone"
+                  placeholder="e.g. 0712345678"
+                  class="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-100"
+                />
+              </div>
+
+              <p class="mt-2 text-xs leading-5 text-slate-400">
+                You will receive an M-Pesa payment prompt on this number.
+              </p>
+            </div>
+
+            <!-- Place Order -->
+            <button
+              type="button"
+              (click)="sendStkPush()"
+              class="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-5 py-3.5 text-sm font-bold text-white shadow-sm shadow-orange-500/20 transition hover:bg-orange-600 active:scale-[0.99]"
+            >
+              <i class="fa-solid fa-lock text-xs"></i>
+
+              Place Order
+            </button>
+
+            <!-- Security -->
+            <div class="mt-4 flex items-center justify-center gap-2 text-xs text-slate-400">
+              <i class="fa-solid fa-shield-halved text-green-500"></i>
+
+              Secure M-Pesa payment
+            </div>
+          </div>
+        </aside>
+      </div>
+    }
+
+    <!-- ====================================== -->
+    <!-- EMPTY CART -->
+    <!-- ====================================== -->
+
+    @if (cartService.cart().items?.length === 0) {
+      <div
+        class="flex min-h-[500px] items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm"
+      >
+        <div class="px-6 text-center">
+          <div
+            class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-orange-50 text-orange-500"
+          >
+            <i class="fa-solid fa-cart-shopping text-2xl"></i>
+          </div>
+
+          <h2 class="mt-6 text-xl font-bold text-slate-900">Your cart is empty</h2>
+
+          <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-slate-500">
+            You haven't added anything to your cart yet. Browse our products and find something you
+            love.
+          </p>
+
+          <button
+            type="button"
+            class="mt-6 rounded-xl bg-orange-500 px-6 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-orange-600"
+          >
+            <span class="flex items-center gap-2">
+              <i class="fa-solid fa-bag-shopping"></i>
+              Continue Shopping
+            </span>
+          </button>
+        </div>
+      </div>
+    }
   </div>
 </div>
