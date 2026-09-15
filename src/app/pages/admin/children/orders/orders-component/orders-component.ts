@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { OrderService } from '../../../../../services/order/order-service';
@@ -70,11 +70,120 @@ export class OrdersComponent implements OnInit {
     },
   ]);
 
+  // --------------------------------------------------
+  // Orders
+  // --------------------------------------------------
   orders = signal<IOrder[]>([]);
 
   isLoading = signal(false);
 
   updatingOrderId = signal<string | null>(null);
+
+  // --------------------------------------------------
+  // Pagination
+  // --------------------------------------------------
+
+  currentPage = signal(1);
+
+  itemsPerPage = signal(5);
+
+  totalPages = computed(() => {
+    return Math.ceil(this.orders().length / this.itemsPerPage());
+  });
+
+  paginatedOrders = computed(() => {
+    const startIndex = (this.currentPage() - 1) * this.itemsPerPage();
+
+    const endIndex = startIndex + this.itemsPerPage();
+
+    return this.orders().slice(startIndex, endIndex);
+  });
+
+  pageNumbers = computed(() => {
+    const total = this.totalPages();
+    const current = this.currentPage();
+
+    const pages: number[] = [];
+
+    if (total === 0) {
+      return pages;
+    }
+
+    // Show all pages when there are 7 or fewer
+    if (total <= 7) {
+      for (let page = 1; page <= total; page++) {
+        pages.push(page);
+      }
+
+      return pages;
+    }
+
+    // First page
+    pages.push(1);
+
+    // Left ellipsis
+    if (current > 4) {
+      pages.push(-1);
+    }
+
+    // Pages around current page
+    const startPage = Math.max(2, current - 1);
+    const endPage = Math.min(total - 1, current + 1);
+
+    for (let page = startPage; page <= endPage; page++) {
+      pages.push(page);
+    }
+
+    // Right ellipsis
+    if (current < total - 3) {
+      pages.push(-1);
+    }
+
+    // Last page
+    pages.push(total);
+
+    return pages;
+  });
+
+  paginationStart = computed(() => {
+    if (this.orders().length === 0) {
+      return 0;
+    }
+
+    return (this.currentPage() - 1) * this.itemsPerPage() + 1;
+  });
+
+  paginationEnd = computed(() => {
+    return Math.min(this.currentPage() * this.itemsPerPage(), this.orders().length);
+  });
+
+  // --------------------------------------------------
+  // Pagination Methods
+  // --------------------------------------------------
+
+  goToPage(page: number): void {
+    if (page < 1 || page > this.totalPages()) {
+      return;
+    }
+
+    this.currentPage.set(page);
+  }
+
+  nextPage(): void {
+    if (this.currentPage() < this.totalPages()) {
+      this.currentPage.update((page) => page + 1);
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage() > 1) {
+      this.currentPage.update((page) => page - 1);
+    }
+  }
+
+  // --------------------------------------------------
+  // Get Orders
+  // --------------------------------------------------
 
   displayOrders(): void {
     this.isLoading.set(true);
@@ -85,13 +194,14 @@ export class OrdersComponent implements OnInit {
 
         const apiOrders = res?.payload ?? [];
 
-        // Use real API orders if available.
-        // Otherwise use dummy orders.
         if (apiOrders.length > 0) {
           this.orders.set(apiOrders);
         } else {
           this.orders.set(this.dummyOrders());
         }
+
+        // Reset pagination after loading orders
+        this.currentPage.set(1);
 
         this.isLoading.set(false);
       },
@@ -103,10 +213,16 @@ export class OrdersComponent implements OnInit {
         // if the backend is unavailable.
         this.orders.set(this.dummyOrders());
 
+        this.currentPage.set(1);
+
         this.isLoading.set(false);
       },
     });
   }
+
+  // --------------------------------------------------
+  // Update Order Status
+  // --------------------------------------------------
 
   updateOrderStatus(orderId: string): void {
     if (!orderId) {
@@ -132,6 +248,10 @@ export class OrdersComponent implements OnInit {
       },
     });
   }
+
+  // --------------------------------------------------
+  // Status Styling
+  // --------------------------------------------------
 
   getStatusClasses(status: string): string {
     switch (status?.toUpperCase()) {
@@ -187,6 +307,10 @@ export class OrdersComponent implements OnInit {
       .replace(/_/g, ' ')
       .replace(/\b\w/g, (char) => char.toUpperCase());
   }
+
+  // --------------------------------------------------
+  // Lifecycle
+  // --------------------------------------------------
 
   ngOnInit(): void {
     this.displayOrders();
