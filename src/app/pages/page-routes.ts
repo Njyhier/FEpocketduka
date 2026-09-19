@@ -7,7 +7,7 @@ export const pageRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'homepage',
+        redirectTo: 'landing',
         pathMatch: 'full',
       },
       {
@@ -87,6 +87,13 @@ export const pageRoutes: Routes = [
               ),
           },
         ],
+      },
+      {
+        path: 'landing',
+        loadComponent: () =>
+          import('./landing/landing-page-component/landing-page-component').then(
+            (m) => m.LandingPageComponent,
+          ),
       },
     ],
   },
