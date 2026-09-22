@@ -1,192 +1,305 @@
-<div id="products" class="min-h-screen w-full overflow-x-hidden bg-slate-100">
+<div id="products" class="flex min-h-screen w-full min-w-0 bg-slate-100">
   <!-- =====================================================
-       FIXED SIDEBAR
+       DESKTOP SIDEBAR
        ===================================================== -->
+
   <aside
-    class="fixed inset-y-0 left-0 z-50 hidden h-screen w-60 overflow-hidden bg-slate-900 text-white shadow-xl lg:block"
+    class="sticky top-0 z-40 hidden h-screen shrink-0 self-start overflow-hidden bg-slate-900 text-white shadow-xl transition-[width] duration-300 lg:block"
+    [class.w-60]="!sidebarCollapsed()"
+    [class.w-20]="sidebarCollapsed()"
   >
-    <div class="flex h-full w-full flex-col px-5 py-6">
+    <div class="flex h-full w-full flex-col px-3 py-5">
       <!-- Sidebar Header -->
-      <div class="flex shrink-0 items-center justify-between">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-orange-400">PocketDuka</p>
-
-          <h2 class="mt-1 text-xl font-bold">Filters</h2>
-        </div>
-
-        <div class="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-800">
-          <i class="fa-solid fa-sliders text-orange-400"></i>
-        </div>
-      </div>
-
-      <hr class="my-5 shrink-0 border-slate-700" />
-
-      <!-- Categories -->
-      <nav class="shrink-0">
-        <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Categories</h3>
-
-        <ul class="space-y-1">
-          <li>
-            <a
-              href="/"
-              class="flex items-center justify-between rounded-lg bg-orange-500 px-3 py-2.5 text-sm font-semibold text-white"
-            >
-              <span>All Products</span>
-
-              <i class="fa-solid fa-check text-xs"></i>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              Electronics
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              Fashion
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              Home
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              Beauty
-            </a>
-          </li>
-        </ul>
-      </nav>
-
-      <hr class="my-5 shrink-0 border-slate-700" />
-
-      <!-- Price -->
-      <div class="shrink-0">
-        <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">Price Range</h3>
-
-        <div class="flex items-center justify-between text-xs text-slate-400">
-          <span>KSH 0</span>
-          <span>KSH 100,000+</span>
-        </div>
-
-        <input type="range" min="0" max="100000" class="mt-3 w-full accent-orange-500" />
-      </div>
-
-      <hr class="my-5 shrink-0 border-slate-700" />
-
-      <!-- Rating -->
-      <div class="shrink-0">
-        <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
-          Minimum Rating
-        </h3>
-
-        <ul class="space-y-1">
-          <li>
-            <a
-              href="/"
-              class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              <i class="fa-solid fa-star text-yellow-400"></i>
-              4+ Stars
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              <i class="fa-solid fa-star text-yellow-400"></i>
-              3+ Stars
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              <i class="fa-solid fa-star text-yellow-400"></i>
-              2+ Stars
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              <i class="fa-solid fa-star text-yellow-400"></i>
-              1+ Stars
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="/"
-              class="block rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-            >
-              All Ratings
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <hr class="my-5 shrink-0 border-slate-700" />
-
-      <!-- Stock -->
-      <label
-        class="flex shrink-0 cursor-pointer items-center justify-between text-sm text-slate-300"
+      <div
+        class="flex shrink-0 items-center"
+        [class.justify-between]="!sidebarCollapsed()"
+        [class.justify-center]="sidebarCollapsed()"
       >
-        <span>In Stock Only</span>
+        @if (!sidebarCollapsed()) {
+          <div class="min-w-0">
+            <p class="truncate text-xs font-semibold uppercase tracking-widest text-orange-400">
+              PocketDuka
+            </p>
 
-        <input type="checkbox" class="h-4 w-4 accent-orange-500" />
-      </label>
+            <h2 class="mt-1 text-xl font-bold">Filters</h2>
+          </div>
+        }
 
-      <!-- Clear -->
-      <button
-        type="button"
-        class="mt-5 w-full shrink-0 rounded-lg border border-slate-600 px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-orange-500 hover:bg-slate-800 hover:text-white"
-      >
-        Clear All Filters
-      </button>
+        <button
+          type="button"
+          (click)="toggleSidebar()"
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-800 text-slate-300 transition hover:bg-slate-700 hover:text-orange-400"
+          [attr.aria-label]="sidebarCollapsed() ? 'Expand filters' : 'Collapse filters'"
+        >
+          <i
+            class="fa-solid text-sm"
+            [class.fa-chevron-right]="sidebarCollapsed()"
+            [class.fa-chevron-left]="!sidebarCollapsed()"
+          ></i>
+        </button>
+      </div>
+
+      <hr class="my-5 shrink-0 border-slate-700" />
+
+      @if (!sidebarCollapsed()) {
+        <!-- =================================================
+             EXPANDED FILTERS
+             ================================================= -->
+
+        <div class="min-h-0 flex-1 overflow-y-auto pr-1">
+          <!-- Categories -->
+          <nav>
+            <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Categories
+            </h3>
+
+            <ul class="space-y-1">
+              <li>
+                <a
+                  href="/"
+                  class="flex items-center justify-between rounded-lg bg-orange-500 px-3 py-2.5 text-sm font-semibold text-white"
+                >
+                  <span>All Products</span>
+                  <i class="fa-solid fa-check text-xs"></i>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  Electronics
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  Fashion
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  Home
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  Beauty
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <hr class="my-5 border-slate-700" />
+
+          <!-- Price -->
+          <div>
+            <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Price Range
+            </h3>
+
+            <div class="flex items-center justify-between gap-2 text-xs text-slate-400">
+              <span>KSH 0</span>
+              <span>KSH 100,000+</span>
+            </div>
+
+            <input type="range" min="0" max="100000" class="mt-3 w-full accent-orange-500" />
+          </div>
+
+          <hr class="my-5 border-slate-700" />
+
+          <!-- Rating -->
+          <div>
+            <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-400">
+              Minimum Rating
+            </h3>
+
+            <ul class="space-y-1">
+              <li>
+                <a
+                  href="/"
+                  class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  <i class="fa-solid fa-star text-yellow-400"></i>
+                  <span>4+ Stars</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  <i class="fa-solid fa-star text-yellow-400"></i>
+                  <span>3+ Stars</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  <i class="fa-solid fa-star text-yellow-400"></i>
+                  <span>2+ Stars</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  <i class="fa-solid fa-star text-yellow-400"></i>
+                  <span>1+ Stars</span>
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="/"
+                  class="block rounded-lg px-3 py-2 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
+                >
+                  All Ratings
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <hr class="my-5 border-slate-700" />
+
+          <!-- Stock -->
+          <label
+            class="flex cursor-pointer items-center justify-between gap-3 text-sm text-slate-300"
+          >
+            <span>In Stock Only</span>
+
+            <input type="checkbox" class="h-4 w-4 shrink-0 accent-orange-500" />
+          </label>
+
+          <!-- Clear -->
+          <button
+            type="button"
+            class="mt-5 w-full rounded-lg border border-slate-600 px-3 py-2.5 text-sm font-semibold text-slate-300 transition hover:border-orange-500 hover:bg-slate-800 hover:text-white"
+          >
+            Clear All Filters
+          </button>
+        </div>
+      } @else {
+        <!-- =================================================
+             COLLAPSED SIDEBAR
+             ================================================= -->
+
+        <nav class="flex flex-col items-center gap-2">
+          <button
+            type="button"
+            title="All Products"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white"
+          >
+            <i class="fa-solid fa-store text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Electronics"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-mobile-screen-button text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Fashion"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-shirt text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Home"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-house text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Beauty"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+          </button>
+
+          <hr class="my-3 w-full border-slate-700" />
+
+          <button
+            type="button"
+            title="Price Range"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-money-bill-wave text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Rating"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-star text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="In Stock Only"
+            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+          >
+            <i class="fa-solid fa-box text-sm"></i>
+          </button>
+
+          <button
+            type="button"
+            title="Clear Filters"
+            class="mt-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-red-500 hover:text-white"
+          >
+            <i class="fa-solid fa-filter-circle-xmark text-sm"></i>
+          </button>
+        </nav>
+      }
     </div>
   </aside>
 
   <!-- =====================================================
-       MAIN PAGE
+       MAIN CONTENT
        ===================================================== -->
-  <div class="min-h-screen w-full lg:ml-60 lg:w-[calc(100%-15rem)]">
+
+  <main class="min-w-0 flex-1">
     <!-- ===================================================
-         HEADER
+         PAGE HEADER
          =================================================== -->
-    <header class="px-3 py-4 sm:px-5 lg:px-8">
+
+    <header class="min-w-0 px-3 py-4 sm:px-5 lg:px-8">
       <div
-        class="mx-auto flex w-full max-w-7xl flex-col gap-4 rounded-2xl bg-slate-900 px-5 py-5 text-white shadow-lg sm:flex-row sm:items-center sm:justify-between"
+        class="flex min-w-0 w-full flex-col gap-4 rounded-2xl bg-slate-900 px-4 py-5 text-white shadow-lg sm:flex-row sm:items-center sm:justify-between sm:px-5"
       >
         <!-- Title -->
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="h-2.5 w-2.5 rounded-full bg-orange-500"></span>
+        <div class="min-w-0">
+          <div class="flex min-w-0 items-center gap-2">
+            <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-orange-500"></span>
 
-            <h1 class="text-xl font-bold sm:text-2xl">All Products</h1>
+            <h1 class="truncate text-xl font-bold sm:text-2xl">All Products</h1>
           </div>
 
           <p class="mt-1 text-sm text-slate-300">
@@ -199,21 +312,21 @@
         </div>
 
         <!-- Actions -->
-        <div class="flex items-center gap-2">
+        <div class="flex shrink-0 items-center gap-2">
           <button
             type="button"
-            class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-medium transition hover:border-orange-500 hover:bg-slate-700"
+            class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm font-medium transition hover:border-orange-500 hover:bg-slate-700 sm:px-4"
           >
             <i class="fa-solid fa-filter"></i>
-            Filters
+            <span>Filters</span>
           </button>
 
           <button
             type="button"
-            class="flex items-center gap-2 rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-600"
+            class="flex items-center gap-2 rounded-lg bg-orange-500 px-3 py-2 text-sm font-semibold text-white transition hover:bg-orange-600 sm:px-4"
           >
             <i class="fa-solid fa-arrow-down-wide-short"></i>
-            Sort
+            <span>Sort</span>
           </button>
         </div>
       </div>
@@ -222,22 +335,22 @@
     <!-- ===================================================
          PRODUCTS
          =================================================== -->
-    <main class="px-3 pb-8 sm:px-5 lg:px-8">
-      <div class="mx-auto w-full max-w-7xl">
-        @if ((productsToDisplay() ?? []).length > 0) {
+
+    <section class="min-w-0 w-full px-3 pb-8 sm:px-5 lg:px-8">
+      <div class="min-w-0 w-full">
+        @if (productsToDisplay().length > 0) {
           <div
             id="items"
-            class="grid w-full grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+            class="grid min-w-0 w-full grid-cols-2 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
           >
             @for (p of productsToDisplay(); track p.id) {
-              <!-- =========================================
-                   PRODUCT CARD
-                   ========================================= -->
+              <!-- PRODUCT CARD -->
+
               <article
                 class="group min-w-0 overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 <!-- Image -->
-                <div class="relative aspect-square overflow-hidden bg-slate-100">
+                <div class="relative aspect-square min-w-0 overflow-hidden bg-slate-100">
                   <img
                     [src]="p.images[0]?.url"
                     [alt]="p.name"
@@ -246,7 +359,7 @@
 
                   <!-- Badge -->
                   <div
-                    class="absolute left-3 top-3 rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white shadow"
+                    class="absolute left-2 top-2 rounded-full bg-orange-500 px-2 py-1 text-[10px] font-bold text-white shadow sm:left-3 sm:top-3 sm:px-2.5 sm:text-xs"
                   >
                     New
                   </div>
@@ -254,7 +367,7 @@
                   <!-- Wishlist -->
                   <button
                     type="button"
-                    class="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow-md backdrop-blur transition hover:bg-orange-500 hover:text-white"
+                    class="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 shadow-md backdrop-blur transition hover:bg-orange-500 hover:text-white sm:right-3 sm:top-3 sm:h-9 sm:w-9"
                   >
                     <i class="fa-regular fa-heart"></i>
                   </button>
@@ -266,27 +379,31 @@
                     <button
                       type="button"
                       (click)="navigateToDetails(p?.id ?? '')"
-                      class="rounded-lg bg-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg transition hover:bg-orange-600"
+                      class="rounded-lg bg-orange-500 px-3 py-2 text-xs font-semibold text-white shadow-lg transition hover:bg-orange-600 sm:px-4 sm:text-sm"
                     >
-                      <i class="fa-solid fa-eye mr-2"></i>
+                      <i class="fa-solid fa-eye mr-1 sm:mr-2"></i>
                       Quick View
                     </button>
                   </div>
                 </div>
 
                 <!-- Details -->
-                <div class="p-3">
-                  <p class="mb-1 text-xs font-medium uppercase tracking-wide text-slate-400">
+                <div class="min-w-0 p-3">
+                  <p
+                    class="mb-1 text-[10px] font-medium uppercase tracking-wide text-slate-400 sm:text-xs"
+                  >
                     Product
                   </p>
 
-                  <h2 class="line-clamp-2 min-h-10 text-sm font-bold text-slate-900 sm:text-base">
+                  <h2
+                    class="line-clamp-2 min-h-10 break-words text-sm font-bold text-slate-900 sm:text-base"
+                  >
                     {{ p.name }}
                   </h2>
 
                   <!-- Rating -->
-                  <div class="mt-2 flex items-center gap-1">
-                    <div class="text-xs text-yellow-400">
+                  <div class="mt-2 flex min-w-0 items-center gap-1">
+                    <div class="shrink-0 text-[10px] text-yellow-400 sm:text-xs">
                       <i class="fa-solid fa-star"></i>
                       <i class="fa-solid fa-star"></i>
                       <i class="fa-solid fa-star"></i>
@@ -294,16 +411,16 @@
                       <i class="fa-regular fa-star"></i>
                     </div>
 
-                    <span class="text-xs text-slate-400"> (4.0) </span>
+                    <span class="text-[10px] text-slate-400 sm:text-xs"> (4.0) </span>
                   </div>
 
                   <!-- Price -->
-                  <div class="mt-2">
-                    <p class="text-base font-extrabold text-slate-900 sm:text-lg">
+                  <div class="mt-2 min-w-0">
+                    <p class="truncate text-sm font-extrabold text-slate-900 sm:text-lg">
                       KSH {{ p.inventories[0]?.selling_price }}
                     </p>
 
-                    <p class="text-xs text-green-600">
+                    <p class="text-[10px] text-green-600 sm:text-xs">
                       <i class="fa-solid fa-circle-check mr-1"></i>
                       In stock
                     </p>
@@ -313,21 +430,20 @@
                   <button
                     type="button"
                     (click)="addToCart(p.id ?? '')"
-                    class="mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-3 text-sm font-semibold text-white transition hover:bg-orange-500 active:scale-95"
+                    class="mt-3 flex h-9 w-full min-w-0 items-center justify-center gap-2 rounded-lg bg-slate-900 px-2 text-xs font-semibold text-white transition hover:bg-orange-500 active:scale-95 sm:h-10 sm:px-3 sm:text-sm"
                   >
                     <i class="fa-solid fa-cart-shopping"></i>
-                    Add to Cart
+                    <span>Add to Cart</span>
                   </button>
                 </div>
               </article>
             }
           </div>
         } @else {
-          <!-- ===========================================
-               EMPTY STATE
-               =========================================== -->
+          <!-- EMPTY STATE -->
+
           <div
-            class="flex min-h-[400px] flex-col items-center justify-center rounded-2xl bg-white p-8 text-center shadow-sm"
+            class="flex min-h-[400px] flex-col items-center justify-center rounded-2xl bg-white p-6 text-center shadow-sm sm:p-8"
           >
             <div
               class="flex h-20 w-20 items-center justify-center rounded-full bg-orange-100 text-orange-500"
@@ -351,6 +467,6 @@
           </div>
         }
       </div>
-    </main>
-  </div>
+    </section>
+  </main>
 </div>

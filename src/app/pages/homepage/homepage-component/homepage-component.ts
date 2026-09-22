@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart/cart-service';
 
-interface HomeProduct {
+export interface HomeProduct {
   id: string;
   name: string;
   category: string;
@@ -13,7 +13,7 @@ interface HomeProduct {
   image: string;
 }
 
-interface Category {
+export interface Category {
   id: string;
   name: string;
   description: string;
@@ -348,6 +348,9 @@ export class HomepageComponent {
   navigateToProducts(): void {
     this.router.navigate(['/products']);
   }
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
   navigateToCart(): void {
     this.router.navigate(['/cart']);
   }
@@ -382,5 +385,14 @@ export class HomepageComponent {
 
   addToWishlist(product: HomeProduct): void {
     console.log('Adding to wishlist:', product);
+  }
+  showAccountMenu = signal(false);
+
+  toggleAccountMenu(): void {
+    this.showAccountMenu.update((value) => !value);
+  }
+
+  closeAccountMenu(): void {
+    this.showAccountMenu.set(false);
   }
 }

@@ -1,4 +1,5 @@
 <div id="container" class="bg-fixed w-screen relative min-h-dvh h-fit">
+  <app-header />
   <router-outlet></router-outlet>
   @if (loaderService.isLoading()) {
     <app-pd-loader

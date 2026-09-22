@@ -31,6 +31,12 @@ export class ProductspageComponent implements OnInit {
     });
   }
 
+  sidebarCollapsed = signal(false);
+
+  toggleSidebar(): void {
+    this.sidebarCollapsed.update((collapsed) => !collapsed);
+  }
+
   ngOnInit(): void {
     this.displayProducts();
   }

@@ -1,42 +1,99 @@
-import { Component, inject } from '@angular/core';
-import { DesktopNavComponent } from '../../navbar/desktopNav/desktop-nav-component/desktop-nav-component';
-import { LogoComponent } from '../../logo/logo-component/logo-component';
-import { MobileNavComponent } from '../../navbar/mobileNav/mobile-nav-component/mobile-nav-component';
+import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Authservice } from '../../../services/auth/authservice';
 import { CartService } from '../../../services/cart/cart-service';
-import { SearchbarComponent } from '../../searchbar/searchbar-component/searchbar-component';
+import { HomeProduct } from '../../../pages/homepage/homepage-component/homepage-component';
 
 @Component({
-  selector: 'app-header-component',
-  imports: [DesktopNavComponent, LogoComponent, MobileNavComponent, SearchbarComponent],
+  selector: 'app-header',
+  imports: [],
   templateUrl: './header-component.html',
   styleUrl: './header-component.css',
 })
 export class HeaderComponent {
-  authService = inject(Authservice);
-  private router: Router = inject(Router);
-  private cartService = inject(CartService);
-  logout() {
-    this.authService.removeToken();
-    this.router.navigate(['login']);
-    this.cartService.cart.set({});
+  cartService = inject(CartService);
+  private router = inject(Router);
+
+  isLoggedIn = signal(true);
+
+  currentUserName = signal('John Doe');
+  currentUserEmail = signal('john@example.com');
+
+  isAdmin = signal(true);
+
+  showMobileNav = signal(false);
+
+  toggleMobileNav(): void {
+    this.showMobileNav.update((isOpen) => !isOpen);
+  }
+
+  navigateToProducts(): void {
+    this.router.navigate(['/products']);
+  }
+  navigateToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+  navigateToCart(): void {
+    this.router.navigate(['/cart']);
+  }
+
+  navigateToCategory(category: string): void {
+    this.router.navigate(['/products'], {
+      queryParams: {
+        category,
+      },
+    });
+  }
+
+  viewProduct(productId: string): void {
+    this.router.navigate(['/products', productId]);
+  }
+
+  navigateToWishlist(): void {
+    this.router.navigate(['/wishlist']);
+  }
+
+  addToCart(product: HomeProduct): void {
+    console.log('Adding to cart:', product);
+  }
+
+  addToWishlist(product: HomeProduct): void {
+    console.log('Adding to wishlist:', product);
+  }
+  showAccountMenu = signal(false);
+
+  toggleAccountMenu(): void {
+    this.showAccountMenu.update((value) => !value);
+  }
+
+  closeAccountMenu(): void {
+    this.showAccountMenu.set(false);
+  }
+
+  navigateToAccount(): void {
+    this.closeAccountMenu();
+    this.router.navigate(['/user-details']);
+  }
+
+  navigateToOrders(): void {
+    this.closeAccountMenu();
+    this.router.navigate(['/orders']);
+  }
+
+  navigateToAdmin(): void {
+    this.closeAccountMenu();
+    this.router.navigate(['/admin']);
+  }
+
+  navigateToSignup(): void {
+    this.closeAccountMenu();
+    this.router.navigate(['/signup']);
+  }
+
+  logout(): void {
+    // Authentication logic will be added later.
+    this.isLoggedIn.set(false);
+    this.closeAccountMenu();
+
+    this.router.navigate(['/login']);
   }
 }
-
-// import { Component } from '@angular/core';
-
-// import { LogoComponent } from '../../logo/logo-component/logo-component';
-// import { SearchbarComponent } from '../../searchbar/searchbar-component/searchbar-component';
-
-// import { DesktopNavComponent } from '../../navbar/desktopNav/desktop-nav-component/desktop-nav-component';
-// import { MobileNavComponent } from '../../navbar/mobileNav/mobile-nav-component/mobile-nav-component';
-
-// @Component({
-//   selector: 'app-header',
-//   standalone: true,
-//   imports: [LogoComponent, SearchbarComponent, DesktopNavComponent, MobileNavComponent],
-//   templateUrl: './header-component.html',
-//   styleUrl: './header-component.css',
-// })
-// export class HeaderComponent {}

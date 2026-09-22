@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainPageComponent } from './mainPage/main-page-component/main-page-component';
+
 export const pageRoutes: Routes = [
   {
     path: '',
@@ -7,9 +8,10 @@ export const pageRoutes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'landing',
+        redirectTo: 'homepage',
         pathMatch: 'full',
       },
+
       {
         path: 'homepage',
         loadComponent: () =>
@@ -17,18 +19,7 @@ export const pageRoutes: Routes = [
             (m) => m.HomepageComponent,
           ),
       },
-      {
-        path: 'login',
-        loadComponent: () =>
-          import('./login/loginpage-component/loginpage-component').then(
-            (m) => m.LoginpageComponent,
-          ),
-      },
-      {
-        path: 'signup',
-        loadComponent: () =>
-          import('./signup/sign-up-component/sign-up-component').then((m) => m.SignUpComponent),
-      },
+
       {
         path: 'userdetails/:user_id',
         loadComponent: () =>
@@ -36,6 +27,7 @@ export const pageRoutes: Routes = [
             (m) => m.UserDetailsComponent,
           ),
       },
+
       {
         path: 'products',
         loadComponent: () =>
@@ -43,6 +35,7 @@ export const pageRoutes: Routes = [
             (m) => m.ProductspageComponent,
           ),
       },
+
       {
         path: 'products/:product_id',
         loadComponent: () =>
@@ -50,28 +43,33 @@ export const pageRoutes: Routes = [
             (m) => m.ProductDetailsComponent,
           ),
       },
+
       {
         path: 'cart',
         loadComponent: () =>
           import('../components/cart/cart-component/cart-component').then((m) => m.CartComponent),
       },
+
       {
         path: 'orders',
         loadComponent: () =>
           import('./orders/orders-component/orders-component').then((m) => m.OrdersComponent),
       },
+
       {
         path: 'admin',
         loadComponent: () =>
           import('./admin/admin-page-component/admin-page-component').then(
             (m) => m.AdminPageComponent,
           ),
+
         children: [
           {
             path: '',
             redirectTo: 'orders',
             pathMatch: 'full',
           },
+
           {
             path: 'orders',
             loadComponent: () =>
@@ -79,6 +77,7 @@ export const pageRoutes: Routes = [
                 (m) => m.OrdersComponent,
               ),
           },
+
           {
             path: 'addproduct',
             loadComponent: () =>
@@ -88,13 +87,24 @@ export const pageRoutes: Routes = [
           },
         ],
       },
-      {
-        path: 'landing',
-        loadComponent: () =>
-          import('./landing/landing-page-component/landing-page-component').then(
-            (m) => m.LandingPageComponent,
-          ),
-      },
     ],
+  },
+  {
+    path: 'landing',
+    loadComponent: () =>
+      import('./landing/landing-page-component/landing-page-component').then(
+        (m) => m.LandingPageComponent,
+      ),
+  },
+
+  {
+    path: 'signup',
+    loadComponent: () =>
+      import('./signup/sign-up-component/sign-up-component').then((m) => m.SignUpComponent),
+  },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./login/loginpage-component/loginpage-component').then((m) => m.LoginpageComponent),
   },
 ];
