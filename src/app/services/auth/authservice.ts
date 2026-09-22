@@ -91,7 +91,7 @@ export class Authservice {
   loginForAccessToken(username: string, password: string) {
     const body = new HttpParams().set('username', username).set('password', password);
 
-    return this.http.post<TokenResponse>(`${environment.CORE_URL}/token`, body);
+    return this.http.post<TokenResponse>(`${environment.CORE_URL}/auth/login`, body);
   }
 
   setCurrentUser(user: IUser): void {
