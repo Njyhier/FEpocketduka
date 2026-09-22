@@ -71,7 +71,7 @@ export class HeaderComponent {
 
   navigateToAccount(): void {
     this.closeAccountMenu();
-    this.router.navigate(['/userdetails/1']);
+    this.router.navigate(['/profile']);
   }
 
   navigateToOrders(): void {

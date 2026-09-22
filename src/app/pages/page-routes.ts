@@ -28,6 +28,13 @@ export const pageRoutes: Routes = [
             (m) => m.UserProfileComponent,
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./user/user-profile-component/user-profile-component').then(
+            (m) => m.UserProfileComponent,
+          ),
+      },
 
       {
         path: 'products',

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { Authservice } from '../../../services/auth/authservice';
 import { IUser } from '../../../interfaces/iuser';
-import { sampleUserProfile, UserService } from '../../../services/user/user-service';
+import { UserService } from '../../../services/user/user-service';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,7 +24,7 @@ export class UserProfileComponent implements OnInit {
   // State
   // ------------------------------------------------------------
 
-  user = signal<IUser | null>(sampleUserProfile);
+  user = signal<IUser | null>(null);
 
   isEditing = signal(false);
   isLoading = signal(true);
@@ -123,9 +123,7 @@ export class UserProfileComponent implements OnInit {
       this.isLoading.set(false);
       return;
     }
-
-    this.user.set(currentUser);
-    this.populateForm(currentUser);
+    this.loadUserById(currentUser.id!);
 
     this.isLoading.set(false);
   }

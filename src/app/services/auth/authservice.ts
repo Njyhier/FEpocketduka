@@ -132,6 +132,8 @@ export class Authservice {
     if (!user || !user.role_names) {
       return false;
     }
+    console.log(user.role_names);
+    console.log(requiredRole);
 
     return user.role_names.includes(requiredRole);
   }
