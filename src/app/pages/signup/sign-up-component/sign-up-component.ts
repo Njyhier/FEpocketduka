@@ -8,7 +8,7 @@ import {
   ɵInternalFormsSharedModule,
 } from '@angular/forms';
 import { passwordMatchValidator } from '../../../validators/password-match.validator';
-import { IUser } from '../../../interfaces/iuser';
+import { IUser, IUserCreate } from '../../../interfaces/iuser';
 import { UserService } from '../../../services/user/user-service';
 import { Router } from '@angular/router';
 
@@ -51,12 +51,12 @@ export class SignUpComponent {
     const username = this.signUpForm.value.username ?? '';
     const email = this.signUpForm.value.email ?? '';
     const password = this.signUpForm.value.password ?? '';
-    const data: IUser = {
+    const data: IUserCreate = {
       username: username,
       email: email,
       password: password,
     };
-    this.userService.signUp(data).subscribe({
+    this.userService.createUser(data).subscribe({
       next: (response) => {
         console.log('User created successfully', response);
         this.goToLogin();

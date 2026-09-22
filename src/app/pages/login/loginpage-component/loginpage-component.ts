@@ -31,12 +31,13 @@ export class LoginpageComponent {
     }
     this.authservice.loginForAccessToken(username, password).subscribe({
       next: (res) => {
-        console.log(res);
+        // console.log(res);
         // this.authservice.currentUser.set(res.payload.user);
         this.authservice.setToken(res.access_token);
-        console.log('Login Successful');
+        this.authservice.setCurrentUser(res.user);
+        // console.log('Login Successful');
         this.cartService.getCart().subscribe((res) => {
-          console.log(res);
+          // console.log(res);
           this.cartService.cart.set(res.payload ?? {});
         });
         this.router.navigate(['products']);

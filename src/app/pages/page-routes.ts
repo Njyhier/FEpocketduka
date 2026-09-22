@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { MainPageComponent } from './mainPage/main-page-component/main-page-component';
+import { adminGuard } from '../guards/auth-guard-guard';
 
 export const pageRoutes: Routes = [
   {
@@ -23,8 +24,8 @@ export const pageRoutes: Routes = [
       {
         path: 'userdetails/:user_id',
         loadComponent: () =>
-          import('./userDetails/user-details-component/user-details-component').then(
-            (m) => m.UserDetailsComponent,
+          import('./user/user-profile-component/user-profile-component').then(
+            (m) => m.UserProfileComponent,
           ),
       },
 
@@ -58,6 +59,7 @@ export const pageRoutes: Routes = [
 
       {
         path: 'admin',
+        canActivate: [adminGuard],
         loadComponent: () =>
           import('./admin/admin-page-component/admin-page-component').then(
             (m) => m.AdminPageComponent,

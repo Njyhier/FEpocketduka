@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart/cart-service';
 import { HomeProduct } from '../../../pages/homepage/homepage-component/homepage-component';
+import { Authservice } from '../../../services/auth/authservice';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,13 @@ import { HomeProduct } from '../../../pages/homepage/homepage-component/homepage
 })
 export class HeaderComponent {
   cartService = inject(CartService);
+  authService = inject(Authservice);
   private router = inject(Router);
+  currentUser = this.authService.currentUser();
 
-  isLoggedIn = signal(true);
+  isLoggedIn = signal(this.authService.isLoggedIn());
 
-  currentUserName = signal('John Doe');
-  currentUserEmail = signal('john@example.com');
-
-  isAdmin = signal(true);
+  isAdmin = signal(this.authService.isAuthorised('string'));
 
   showMobileNav = signal(false);
 
@@ -71,7 +71,7 @@ export class HeaderComponent {
 
   navigateToAccount(): void {
     this.closeAccountMenu();
-    this.router.navigate(['/user-details']);
+    this.router.navigate(['/userdetails/1']);
   }
 
   navigateToOrders(): void {
