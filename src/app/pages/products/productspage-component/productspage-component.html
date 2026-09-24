@@ -1,10 +1,10 @@
-<div id="products" class="flex min-h-screen w-full min-w-0 bg-slate-100">
+<div id="products" class="flex min-h-screen w-full min-w-0 items-start bg-slate-100">
   <!-- =====================================================
        DESKTOP SIDEBAR
        ===================================================== -->
 
   <aside
-    class="sticky top-0 z-40 hidden h-screen shrink-0 self-start overflow-hidden bg-slate-900 text-white shadow-xl transition-[width] duration-300 lg:block"
+    class="sticky top-0 z-40 hidden h-screen shrink-0 self-start bg-slate-900 text-white shadow-xl transition-[width] duration-300 lg:block"
     [class.w-60]="!sidebarCollapsed()"
     [class.w-20]="sidebarCollapsed()"
   >
@@ -54,51 +54,25 @@
             </h3>
 
             <ul class="space-y-1">
-              <li>
-                <a
-                  href="/"
-                  class="flex items-center justify-between rounded-lg bg-orange-500 px-3 py-2.5 text-sm font-semibold text-white"
-                >
-                  <span>All Products</span>
-                  <i class="fa-solid fa-check text-xs"></i>
-                </a>
-              </li>
+              @for (category of displayCategories(); track category.value) {
+                <li>
+                  <button
+                    type="button"
+                    (click)="selectCategory(category.value)"
+                    [class]="
+                      category.isActive
+                        ? 'flex items-center justify-between rounded-lg bg-orange-500 px-3 py-2.5 text-sm font-semibold text-white gap-12'
+                        : 'block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white'
+                    "
+                  >
+                    <span>{{ category.title }}</span>
 
-              <li>
-                <a
-                  href="/"
-                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                  Electronics
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/"
-                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                  Fashion
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/"
-                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                  Home
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="/"
-                  class="block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white"
-                >
-                  Beauty
-                </a>
-              </li>
+                    @if (category.isActive) {
+                      <i class="fa-solid fa-check text-xs"></i>
+                    }
+                  </button>
+                </li>
+              }
             </ul>
           </nav>
 
@@ -203,45 +177,35 @@
              ================================================= -->
 
         <nav class="flex flex-col items-center gap-2">
-          <button
-            type="button"
-            title="All Products"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-500 text-white"
-          >
-            <i class="fa-solid fa-store text-sm"></i>
-          </button>
-
-          <button
-            type="button"
-            title="Electronics"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
-          >
-            <i class="fa-solid fa-mobile-screen-button text-sm"></i>
-          </button>
-
-          <button
-            type="button"
-            title="Fashion"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
-          >
-            <i class="fa-solid fa-shirt text-sm"></i>
-          </button>
-
-          <button
-            type="button"
-            title="Home"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
-          >
-            <i class="fa-solid fa-house text-sm"></i>
-          </button>
-
-          <button
-            type="button"
-            title="Beauty"
-            class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
-          >
-            <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
-          </button>
+          <ul class="space-y-1">
+            @for (category of displayCategories(); track category.value) {
+              <li>
+                <button
+                  type="button"
+                  (click)="selectCategory(category.value)"
+                  title="Beauty"
+                  [class]="
+                    category.isActive
+                      ? 'flex items-center justify-between rounded-lg bg-orange-500 px-3 py-2.5 text-sm font-semibold text-white'
+                      : 'block rounded-lg px-3 py-2.5 text-sm text-slate-300 transition hover:bg-slate-800 hover:text-white'
+                  "
+                >
+                  <i [class]="category.class"></i>
+                  <!-- 
+                  @if (category.isActive) {
+                    <i class="fa-solid fa-check text-xs"></i>
+                  } -->
+                </button>
+              </li>
+            }
+            <!-- <button
+              type="button"
+              title="Beauty"
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-800 hover:text-orange-400"
+            >
+              <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+            </button> -->
+          </ul>
 
           <hr class="my-3 w-full border-slate-700" />
 
@@ -439,6 +403,40 @@
               </article>
             }
           </div>
+          @if (totalPages() > 1) {
+            <div class="mt-8 flex items-center justify-center gap-2">
+              <!-- Previous -->
+              <button
+                type="button"
+                (click)="previousPage()"
+                [disabled]="currentPage() === 1"
+                class="flex h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 text-sm font-medium text-slate-700 transition hover:border-orange-500 hover:text-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <i class="fa-solid fa-chevron-left"></i>
+
+                <span>Previous</span>
+              </button>
+
+              <!-- Current Page -->
+              <div
+                class="flex h-10 min-w-10 items-center justify-center rounded-lg bg-orange-500 px-3 text-sm font-bold text-white"
+              >
+                {{ currentPage() }}
+              </div>
+
+              <!-- Next -->
+              <button
+                type="button"
+                (click)="nextPage()"
+                [disabled]="currentPage() === totalPages()"
+                class="flex h-10 items-center gap-2 rounded-lg border border-slate-300 bg-white px-4 text-sm font-medium text-slate-700 transition hover:border-orange-500 hover:text-orange-500 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                <span>Next</span>
+
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          }
         } @else {
           <!-- EMPTY STATE -->
 
