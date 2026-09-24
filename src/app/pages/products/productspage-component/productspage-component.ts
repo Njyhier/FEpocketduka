@@ -9,6 +9,7 @@ import { CartItemService } from '../../../services/cartitem/cart-item-service';
 import { CartService } from '../../../services/cart/cart-service';
 
 import { ListProductsParams } from '../../../interfaces/iproduct';
+import { ICategory } from '../../../interfaces/icategory';
 
 @Component({
   selector: 'app-productspage-component',
@@ -51,7 +52,7 @@ export class ProductspageComponent implements OnInit {
   // FILTERS
   // =========================================================
 
-  selectedCategory = signal('');
+  selectedCategory = signal<ICategory | null>(null);
 
   search = signal('');
 
@@ -113,7 +114,7 @@ export class ProductspageComponent implements OnInit {
   // =========================================================
 
   getActiveTab(category: string): boolean {
-    return this.selectedCategory() === category;
+    return this.selectedCategory()?.value === category;
   }
 
   displayCategories() {
@@ -131,9 +132,11 @@ export class ProductspageComponent implements OnInit {
     this.route.queryParamMap.subscribe((params) => {
       const category = params.get('category') ?? '';
 
+      const cat = this.categories.find((c) => c.value === category);
+
       const page = Number(params.get('page') ?? 1);
 
-      this.selectedCategory.set(category);
+      this.selectedCategory.set(cat ?? null);
 
       this.currentPage.set(page > 0 ? page : 1);
 
@@ -159,7 +162,7 @@ export class ProductspageComponent implements OnInit {
 
       limit,
 
-      category: this.selectedCategory() || undefined,
+      category: this.selectedCategory()?.value || undefined,
 
       search: this.search() || undefined,
 

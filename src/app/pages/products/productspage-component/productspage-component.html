@@ -263,7 +263,7 @@
           <div class="flex min-w-0 items-center gap-2">
             <span class="h-2.5 w-2.5 shrink-0 rounded-full bg-orange-500"></span>
 
-            <h1 class="truncate text-xl font-bold sm:text-2xl">All Products</h1>
+            <h1 class="truncate text-xl font-bold sm:text-2xl">{{ selectedCategory()?.title }}</h1>
           </div>
 
           <p class="mt-1 text-sm text-slate-300">
@@ -278,6 +278,7 @@
         <!-- Actions -->
         <div class="flex shrink-0 items-center gap-2">
           <button
+            (click)="toggleSidebar()"
             type="button"
             class="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-sm font-medium transition hover:border-orange-500 hover:bg-slate-700 sm:px-4"
           >
