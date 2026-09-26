@@ -279,13 +279,22 @@
 
           <button
             type="submit"
-            class="group flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 text-base font-bold text-white shadow-lg shadow-orange-500/20 transition duration-200 hover:bg-orange-600 hover:shadow-orange-500/30 active:scale-[0.98]"
+            [disabled]="isLoggingIn()"
+            class="group flex h-13 w-full items-center justify-center gap-2 rounded-xl bg-orange-500 px-6 text-base font-bold text-white shadow-lg shadow-orange-500/20 transition duration-200 hover:bg-orange-600 hover:shadow-orange-500/30 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
           >
-            <span>Sign in</span>
+            @if (isLoggingIn()) {
+              <span
+                class="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white"
+              ></span>
 
-            <i
-              class="fa-solid fa-arrow-right text-sm transition-transform duration-200 group-hover:translate-x-1"
-            ></i>
+              <span>Signing in...</span>
+            } @else {
+              <span>Sign in</span>
+
+              <i
+                class="fa-solid fa-arrow-right text-sm transition-transform duration-200 group-hover:translate-x-1"
+              ></i>
+            }
           </button>
 
           <!-- Divider -->

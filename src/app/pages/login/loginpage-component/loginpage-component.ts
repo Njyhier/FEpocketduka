@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Authservice } from '../../../services/auth/authservice';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -14,6 +14,7 @@ export class LoginpageComponent {
   private router: Router = inject(Router);
   authservice = inject(Authservice);
   cartService = inject(CartService);
+  isLoggingIn = signal<boolean>(false);
   ptype = 'password';
   loginForm = new FormGroup({
     username: new FormControl(''),
@@ -29,6 +30,7 @@ export class LoginpageComponent {
       console.log('Please provide the correct details');
       return;
     }
+    this.isLoggingIn.set(true);
     this.authservice.loginForAccessToken(username, password).subscribe({
       next: (res) => {
         // console.log(res);
@@ -45,9 +47,11 @@ export class LoginpageComponent {
           this.authservice.removeToken();
           this.router.navigate([this.login]);
         }, 3600000);
+        this.isLoggingIn.set(false);
       },
       error: (e) => {
-        console.log('Error', e);
+        this.isLoggingIn.set(false);
+        alert(e.error.detail);
       },
     });
   }
