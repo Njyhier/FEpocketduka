@@ -1,4 +1,16 @@
 <div id="container" class="bg-fixed w-screen relative min-h-dvh h-fit">
+  <div class="w-full bg-slate-950 text-white">
+    <div
+      class="mx-auto flex w-full max-w-7xl items-center justify-center px-4 py-2 text-center text-xs font-medium sm:px-6 lg:px-8"
+    >
+      <p>
+        Free shipping on orders over
+        <span class="font-bold text-orange-400">$50</span>
+        <span class="mx-2 text-slate-500">•</span>
+        Get <span class="font-bold text-orange-400">10% off</span> your first order
+      </p>
+    </div>
+  </div>
   <app-header />
   <router-outlet></router-outlet>
   @if (loaderService.isLoading()) {
