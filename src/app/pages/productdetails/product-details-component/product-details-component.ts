@@ -44,17 +44,7 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart() {
     const product_id: string = this.product().id ?? '';
-    this.cartItemService.addTocart(product_id).subscribe({
-      next: (res) => {
-        (console.log(res), alert('Product added successfully'));
-      },
-      error: (e) => {
-        console.error('Error', e);
-        if (e.status === 401) {
-          this.router.navigate(['login']);
-        }
-      },
-    });
+    this.productService.addToCart(product_id);
   }
   ngOnInit(): void {
     this.getProduct();

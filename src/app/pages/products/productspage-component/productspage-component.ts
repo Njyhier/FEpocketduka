@@ -3,13 +3,12 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductService } from '../../../services/product/product-service';
-import { IProduct } from '../../../interfaces/iproduct';
 
-import { CartItemService } from '../../../services/cartitem/cart-item-service';
 import { CartService } from '../../../services/cart/cart-service';
 
-import { ListProductsParams } from '../../../interfaces/iproduct';
 import { ICategory } from '../../../interfaces/icategory';
+import { IApiResponse } from '../../../interfaces/iapiresponse';
+import { IProduct } from '../../../interfaces/iproduct';
 
 @Component({
   selector: 'app-productspage-component',
@@ -18,43 +17,26 @@ import { ICategory } from '../../../interfaces/icategory';
   styleUrl: './productspage-component.css',
 })
 export class ProductspageComponent implements OnInit {
-  // =========================================================
-  // SERVICES
-  // =========================================================
-
   private productService = inject(ProductService);
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private cartItemService = inject(CartItemService);
   private cartService = inject(CartService);
 
-  // =========================================================
-  // PRODUCTS
-  // =========================================================
-
-  productsToDisplay = signal<IProduct[]>([]);
-
-  // =========================================================
-  // PAGINATION
-  // =========================================================
+  productsToDisplay = this.productService.productsToDisplay;
 
   currentPage = signal(1);
 
   pageSize = signal(20);
 
-  totalProducts = signal(0);
+  totalProducts = this.productService.totalProducts;
 
-  totalPages = signal(0);
+  totalPages = this.productService.totalPages;
 
-  loadingProducts = signal(false);
-
-  // =========================================================
-  // FILTERS
-  // =========================================================
+  loadingProducts = this.productService.loadingProducts;
 
   selectedCategory = signal<ICategory | null>(null);
 
-  search = signal('');
+  search = this.productService.search;
 
   minPrice = signal<number | undefined>(undefined);
 
@@ -62,15 +44,7 @@ export class ProductspageComponent implements OnInit {
 
   inStock = signal<boolean | undefined>(undefined);
 
-  // =========================================================
-  // SIDEBAR
-  // =========================================================
-
   sidebarCollapsed = signal(false);
-
-  // =========================================================
-  // CATEGORIES
-  // =========================================================
 
   categories = [
     {
@@ -109,10 +83,6 @@ export class ProductspageComponent implements OnInit {
     },
   ];
 
-  // =========================================================
-  // CATEGORY UI
-  // =========================================================
-
   getActiveTab(category: string): boolean {
     return this.selectedCategory()?.value === category;
   }
@@ -123,10 +93,6 @@ export class ProductspageComponent implements OnInit {
       isActive: this.getActiveTab(category.value),
     }));
   }
-
-  // =========================================================
-  // INITIALIZATION
-  // =========================================================
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
@@ -144,65 +110,68 @@ export class ProductspageComponent implements OnInit {
     });
   }
 
-  // =========================================================
-  // LOAD PRODUCTS
-  // =========================================================
-
   loadProducts(): void {
-    this.loadingProducts.set(true);
-
     const page = this.currentPage();
 
     const limit = this.pageSize();
 
     const skip = (page - 1) * limit;
 
-    const params: ListProductsParams = {
+    this.productService.loadProducts({
       skip,
-
       limit,
-
       category: this.selectedCategory()?.value || undefined,
-
       search: this.search() || undefined,
-
       min_price: this.minPrice(),
-
       max_price: this.maxPrice(),
-
       in_stock: this.inStock(),
-
       sort_by: 'created_at',
-
       sort_order: 'desc',
-    };
-
-    this.productService.getProducts(params).subscribe({
-      next: (res) => {
-        this.productsToDisplay.set(res.items ?? []);
-
-        this.totalProducts.set(res.total ?? 0);
-
-        this.totalPages.set(res.total_pages ?? 0);
-
-        this.loadingProducts.set(false);
-      },
-
-      error: (e) => {
-        this.loadingProducts.set(false);
-
-        console.error('Error fetching products', e);
-
-        if (e.status === 401) {
-          this.router.navigate(['login']);
-        }
-      },
     });
-  }
+    // this.productsToDisplay.set(res.items??[])
 
-  // =========================================================
-  // CATEGORY CHANGE
-  // =========================================================
+    // const params: ListProductsParams = {
+    //   skip,
+
+    //   limit,
+
+    //   category: this.selectedCategory()?.value || undefined,
+
+    //   search: this.search() || undefined,
+
+    //   min_price: this.minPrice(),
+
+    //   max_price: this.maxPrice(),
+
+    //   in_stock: this.inStock(),
+
+    //   sort_by: 'created_at',
+
+    //   sort_order: 'desc',
+    // };
+
+    // this.productService.getProducts(params).subscribe({
+    //   next: (res) => {
+    //     this.productsToDisplay.set(res.items ?? []);
+
+    //     this.totalProducts.set(res.total ?? 0);
+
+    //     this.totalPages.set(res.total_pages ?? 0);
+
+    //     this.loadingProducts.set(false);
+    //   },
+
+    //   error: (e) => {
+    //     this.loadingProducts.set(false);
+
+    //     console.error('Error fetching products', e);
+
+    //     if (e.status === 401) {
+    //       this.router.navigate(['login']);
+    //     }
+    //   },
+    // });
+  }
 
   selectCategory(category: string): void {
     this.router.navigate(['/products'], {
@@ -214,9 +183,44 @@ export class ProductspageComponent implements OnInit {
     });
   }
 
-  // =========================================================
-  // NEXT PAGE
-  // =========================================================
+  visiblePages(): (number | 'ellipsis')[] {
+    const total = this.totalPages();
+    const current = this.currentPage();
+
+    // Show everything when there aren't many pages
+    if (total <= 9) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+
+    const pages: (number | 'ellipsis')[] = [];
+
+    // First 3 pages
+    pages.push(1, 2, 3);
+
+    // Pages around the current page
+    const start = Math.max(4, current - 1);
+    const end = Math.min(total - 3, current + 1);
+
+    // Add ellipsis if there is a gap
+    if (start > 4) {
+      pages.push('ellipsis');
+    }
+
+    // Current page and surrounding pages
+    for (let page = start; page <= end; page++) {
+      pages.push(page);
+    }
+
+    // Add ellipsis before last 3 pages
+    if (end < total - 3) {
+      pages.push('ellipsis');
+    }
+
+    // Last 3 pages
+    pages.push(total - 2, total - 1, total);
+
+    return pages;
+  }
 
   nextPage(): void {
     if (this.currentPage() >= this.totalPages()) {
@@ -225,20 +229,23 @@ export class ProductspageComponent implements OnInit {
 
     const nextPage = this.currentPage() + 1;
 
-    this.router.navigate([], {
-      relativeTo: this.route,
+    this.router
+      .navigate([], {
+        relativeTo: this.route,
 
-      queryParams: {
-        page: nextPage,
-      },
+        queryParams: {
+          page: nextPage,
+        },
 
-      queryParamsHandling: 'merge',
-    });
+        queryParamsHandling: 'merge',
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
   }
-
-  // =========================================================
-  // PREVIOUS PAGE
-  // =========================================================
 
   previousPage(): void {
     if (this.currentPage() <= 1) {
@@ -247,48 +254,50 @@ export class ProductspageComponent implements OnInit {
 
     const previousPage = this.currentPage() - 1;
 
-    this.router.navigate([], {
-      relativeTo: this.route,
+    this.router
+      .navigate([], {
+        relativeTo: this.route,
 
-      queryParams: {
-        page: previousPage,
-      },
+        queryParams: {
+          page: previousPage,
+        },
 
-      queryParamsHandling: 'merge',
-    });
+        queryParamsHandling: 'merge',
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
   }
 
-  // =========================================================
-  // GO TO SPECIFIC PAGE
-  // =========================================================
-
   goToPage(page: number): void {
-    if (page < 1 || page > this.totalPages()) {
+    if (page < 1 || page > this.totalPages() || page === this.currentPage()) {
       return;
     }
 
-    this.router.navigate([], {
-      relativeTo: this.route,
+    this.router
+      .navigate([], {
+        relativeTo: this.route,
 
-      queryParams: {
-        page,
-      },
+        queryParams: {
+          page: page,
+        },
 
-      queryParamsHandling: 'merge',
-    });
+        queryParamsHandling: 'merge',
+      })
+      .then(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
   }
-
-  // =========================================================
-  // SIDEBAR
-  // =========================================================
 
   toggleSidebar(): void {
     this.sidebarCollapsed.update((collapsed) => !collapsed);
   }
-
-  // =========================================================
-  // CLEAR FILTERS
-  // =========================================================
 
   clearFilters(): void {
     this.search.set('');
@@ -309,17 +318,9 @@ export class ProductspageComponent implements OnInit {
     });
   }
 
-  // =========================================================
-  // PRODUCT DETAILS
-  // =========================================================
-
   navigateToDetails(productId: string): void {
     this.router.navigate(['products', productId]);
   }
-
-  // =========================================================
-  // CART
-  // =========================================================
 
   getCart(): void {
     this.cartService.getCart().subscribe((res) => {
@@ -328,34 +329,7 @@ export class ProductspageComponent implements OnInit {
   }
 
   addToCart(productId: string): void {
-    const presentItem = this.cartService
-      .cart()
-      ?.items?.find((item) => item.product_id === productId);
-
-    if (presentItem) {
-      this.cartItemService
-        .incrementQuantity(presentItem.id ?? '', (presentItem.quantity ?? 0) + 1)
-        .subscribe({
-          next: () => {
-            this.getCart();
-          },
-        });
-
-      return;
-    }
-
-    this.cartItemService.addTocart(productId).subscribe({
-      next: () => {
-        this.getCart();
-      },
-
-      error: (e) => {
-        console.error('Error adding to cart', e);
-
-        if (e.status === 401) {
-          this.router.navigate(['login']);
-        }
-      },
-    });
+    this.productService.addToCart(productId);
+    return;
   }
 }

@@ -4,7 +4,7 @@
        ===================================================== -->
 
   <aside
-    class="sticky top-0 z-40 hidden h-screen shrink-0 self-start bg-slate-900 text-white shadow-xl transition-[width] duration-300 lg:block"
+    class="sticky top-0 z-40 hidden h-screen shrink-0 self-start bg-slate-900 text-white shadow-xl transition-[width] duration-300"
     [class.w-60]="!sidebarCollapsed()"
     [class.w-20]="sidebarCollapsed()"
   >
@@ -418,12 +418,28 @@
                 <span>Previous</span>
               </button>
 
-              <!-- Current Page -->
-              <div
-                class="flex h-10 min-w-10 items-center justify-center rounded-lg bg-orange-500 px-3 text-sm font-bold text-white"
-              >
-                {{ currentPage() }}
-              </div>
+              <!-- Page Numbers -->
+              @for (page of visiblePages(); track $index) {
+                @if (page === 'ellipsis') {
+                  <span
+                    class="flex h-10 min-w-10 items-center justify-center px-2 text-sm font-medium text-slate-500"
+                  >
+                    ...
+                  </span>
+                } @else {
+                  <button
+                    type="button"
+                    (click)="goToPage(page)"
+                    [class]="
+                      currentPage() === page
+                        ? 'flex h-10 min-w-10 items-center justify-center rounded-lg bg-orange-500 px-3 text-sm font-bold text-white'
+                        : 'flex h-10 min-w-10 items-center justify-center rounded-lg border border-slate-300 bg-white px-3 text-sm font-medium text-slate-700 transition hover:border-orange-500 hover:text-orange-500'
+                    "
+                  >
+                    {{ page }}
+                  </button>
+                }
+              }
 
               <!-- Next -->
               <button
