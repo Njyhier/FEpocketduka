@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CartService } from '../../../services/cart/cart-service';
 import { HomeProduct } from '../../../pages/homepage/homepage-component/homepage-component';
 import { Authservice } from '../../../services/auth/authservice';
+import { ProductService } from '../../../services/product/product-service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,8 @@ import { Authservice } from '../../../services/auth/authservice';
 export class HeaderComponent {
   cartService = inject(CartService);
   authService = inject(Authservice);
+  productService = inject(ProductService);
+
   private router = inject(Router);
   currentUser = this.authService.currentUser();
 

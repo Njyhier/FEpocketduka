@@ -33,7 +33,13 @@
             class="flex h-11 w-full min-w-0 items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50 transition focus-within:border-orange-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-100"
           >
             <input
+              #i
               type="text"
+              (input)="
+                productService.loadProducts({
+                  search: i.value,
+                })
+              "
               placeholder="Search for products..."
               class="min-w-0 flex-1 border-0 bg-transparent px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400"
             />
@@ -308,7 +314,9 @@
         class="flex h-11 w-full items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50 focus-within:border-orange-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-orange-100"
       >
         <input
+          #i
           type="text"
+          (input)="productService.setSearch(i.value)"
           placeholder="Search products..."
           class="min-w-0 flex-1 border-0 bg-transparent px-4 text-sm text-slate-700 outline-none placeholder:text-slate-400"
         />
@@ -362,7 +370,13 @@
             Home & Living
           </button>
 
-          <button type="button" class="transition hover:text-orange-500">Beauty</button>
+          <button
+            type="button"
+            (click)="navigateToCategory('beauty')"
+            class="transition hover:text-orange-500"
+          >
+            Beauty
+          </button>
 
           <button
             type="button"
